@@ -283,7 +283,7 @@ const HeroSection: React.FC = () => (
       <div className="space-y-6 sm:space-y-8 animate-fade-in">
         <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
           <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
-          <span className="block bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
+          <span className="block bg-black bg-clip-text text-transparent drop-shadow-lg">
             2025
           </span>
         </h1>
@@ -292,14 +292,14 @@ const HeroSection: React.FC = () => (
         </p>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
           <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-            <div className="flex items-center justify-center space-x-2 text-purple-300 mb-2">
+            <div className="flex items-center justify-center space-x-2 text-white mb-2">
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
             </div>
             <div className="text-white/70 text-sm sm:text-base">2025</div>
           </GlassCard>
           <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-            <div className="flex items-center justify-center space-x-2 text-pink-300 mb-2">
+            <div className="flex items-center justify-center space-x-2 text-white mb-2">
               <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
             </div>
@@ -313,29 +313,29 @@ const HeroSection: React.FC = () => (
               <CountdownBox
                 value={timeLeft.days}
                 label="Days"
-                color="from-purple-500 to-purple-600"
+                color="black"
               />
               <CountdownBox
                 value={timeLeft.hours}
                 label="Hours"
-                color="from-pink-500 to-pink-600"
+                color="black"
               />
               <CountdownBox
                 value={timeLeft.minutes}
                 label="Minutes"
-                color="from-blue-500 to-blue-600"
+                color="black"
               />
               <CountdownBox
                 value={timeLeft.seconds}
                 label="Seconds"
-                color="from-green-500 to-green-600"
+                color="black"
               />
             </div>
           </div>
         </GlassCard>
         <a
           href="#register"
-          className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+          className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-gray-600 via-gray-600 to-gray-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
           aria-label="Register for the summit"
         >
           Register Now - Early Bird Special
