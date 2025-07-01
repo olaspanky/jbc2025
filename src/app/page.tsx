@@ -19,10 +19,65 @@ import {
   Target,
 } from "lucide-react";
 
+// Interfaces for TypeScript
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+interface GlassCardProps {
+  children: React.ReactNode;
+  className?: string;
+  hover?: boolean;
+}
+
+interface CountdownBoxProps {
+  value: number;
+  label: string;
+  color: string;
+}
+
+interface SpeakerCardProps {
+  name: string;
+  title: string;
+  company: string;
+  initials: string;
+  gradient: string;
+}
+
+interface ScheduleItemProps {
+  time: string;
+  title: string;
+  description: string;
+  color: string;
+}
+
+interface FeatureCardProps {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  gradient: string;
+}
+
+interface NavigationProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isOpen: boolean) => void;
+}
+
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  company: string;
+  ticketType: string;
+}
+
 // Main component
-const JerichoSummitWebsite = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({
+const JerichoSummitWebsite: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
     minutes: 0,
@@ -44,15 +99,15 @@ const JerichoSummitWebsite = () => {
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
         });
       }
-    }, 5000);
+    }, 1000); // Reduced interval for smoother countdown
 
     return () => clearInterval(timer);
   }, []);
 
   // Floating particle for hero section
-  const FloatingParticle = ({ delay = 0 }) => (
+  const FloatingParticle: React.FC<{ delay?: number }> = ({ delay = 0 }) => (
     <div
-      className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-60 animate-pulse"
+      className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-60 animate-float"
       style={{
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,
@@ -63,7 +118,7 @@ const JerichoSummitWebsite = () => {
   );
 
   // Glass card component
-  const GlassCard = ({ children, className = "", hover = true }) => (
+  const GlassCard: React.FC<GlassCardProps> = ({ children, className = "", hover = true }) => (
     <div
       className={`
         backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl
@@ -77,15 +132,15 @@ const JerichoSummitWebsite = () => {
   );
 
   // Countdown box component
-  const CountdownBox = ({ value, label, color }) => (
+  const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label, color }) => (
     <div className={`text-center p-4 rounded-xl bg-gradient-to-br ${color} backdrop-blur-lg`}>
-      <div className="text-xl md:text-4xl font-bold text-white mb-1">{value}</div>
-      <div className="text-[8px] lg:text-sm text-white/80 uppercase tracking-wide">{label}</div>
+      <div className="text-xl sm:text-2xl md:text-4xl font-bold text-white mb-1">{value}</div>
+      <div className="text-[8px] sm:text-xs md:text-sm text-white/80 uppercase tracking-wide">{label}</div>
     </div>
   );
 
   // Speaker card component
-  const SpeakerCard = ({ name, title, company, initials, gradient }) => (
+  const SpeakerCard: React.FC<SpeakerCardProps> = ({ name, title, company, initials, gradient }) => (
     <GlassCard className="p-6 text-center group">
       <div
         className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br ${gradient} group-hover:scale-110 transition-transform duration-300`}
@@ -99,7 +154,7 @@ const JerichoSummitWebsite = () => {
   );
 
   // Schedule item component
-  const ScheduleItem = ({ time, title, description, color }) => (
+  const ScheduleItem: React.FC<ScheduleItemProps> = ({ time, title, description, color }) => (
     <div className={`border-l-4 ${color} pl-4 py-2`}>
       <div className="text-purple-300 font-bold text-sm">{time}</div>
       <div className="text-white font-semibold">{title}</div>
@@ -108,7 +163,7 @@ const JerichoSummitWebsite = () => {
   );
 
   // Feature card component
-  const FeatureCard = ({ icon: Icon, title, description, gradient }) => (
+  const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description, gradient }) => (
     <GlassCard className="p-8 text-center group">
       <div
         className={`w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center bg-gradient-to-br ${gradient} group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
@@ -121,7 +176,7 @@ const JerichoSummitWebsite = () => {
   );
 
   // Navigation component
-  const Navigation = ({ isMenuOpen, setIsMenuOpen }) => (
+  const Navigation: React.FC<NavigationProps> = ({ isMenuOpen, setIsMenuOpen }) => (
     <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/20 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -172,8 +227,8 @@ const JerichoSummitWebsite = () => {
     </nav>
   );
 
-  // Hero section (parallax effect removed)
-  const HeroSection = () => (
+  // Hero section with improved animations and responsiveness
+  const HeroSection: React.FC = () => (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
@@ -184,41 +239,68 @@ const JerichoSummitWebsite = () => {
         animation: "gradientShift 15s ease infinite",
       }}
     >
+      <style jsx>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0) scale(1);
+            opacity: 0.6;
+          }
+          50% {
+            transform: translateY(-20px) scale(1.2);
+            opacity: 0.8;
+          }
+          100% {
+            transform: translateY(0) scale(1);
+            opacity: 0.6;
+          }
+        }
+      `}</style>
       <div className="absolute inset-0 bg-black/30" />
       {[...Array(12)].map((_, i) => (
         <FloatingParticle key={i} delay={i * 0.5} />
       ))}
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-        <div className="space-y-8 animate- mt-20 lg:mt-12">
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
+        <div className="space-y-6 sm:space-y-8 animate-fade-in">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
             <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
             <span className="block bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
               2025
             </span>
           </h1>
-          <p className="text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
             Where Visionary Leaders Converge to Shape the Future of Business
           </p>
-          <div className="flex lg:flex-row  gap-6 justify-center items-center">
-            <GlassCard className="lg:p-6 p-3 text-center lg:min-w-[200px]">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+            <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
               <div className="flex items-center justify-center space-x-2 text-purple-300 mb-2">
-                <Calendar className="lg:w-5 lg:h-5 w-2 h-2" />
-                <span className="lg:text-2xl text-lg font-bold">March 15-17</span>
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
               </div>
-              <div className="text-white/70">2025</div>
+              <div className="text-white/70 text-sm sm:text-base">2025</div>
             </GlassCard>
-            <GlassCard className="lg:p-6 p-3 text-center lg:min-w-[200px]">
+            <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
               <div className="flex items-center justify-center space-x-2 text-pink-300 mb-2">
-                <MapPin className="lg:w-5 lg:h-5 w-2 h-2" />
-                <span className="lg:text-2xl text-lg font-bold">Ibadan, Nigeria</span>
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
               </div>
-              <div className="text-white/70">Civic Centre</div>
+              <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
             </GlassCard>
           </div>
-          <GlassCard className="p-6 max-w-2xl mx-auto">
+          <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
             <div className="text-center mb-4">
-              <h3 className="text-lg text-white/80 mb-2">Event Starts In</h3>
-              <div className="grid grid-cols-4 gap-4">
+              <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
+              <div className="grid grid-cols-4 gap-2 sm:gap-4">
                 <CountdownBox
                   value={timeLeft.days}
                   label="Days"
@@ -244,7 +326,7 @@ const JerichoSummitWebsite = () => {
           </GlassCard>
           <a
             href="#register"
-            className="inline-block text-md lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 p-2 text-white lg:px-12 lg:py-4 rounded-full  font-bold hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+            className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             aria-label="Register for the summit"
           >
             Register Now - Early Bird Special
@@ -252,13 +334,13 @@ const JerichoSummitWebsite = () => {
         </div>
       </div>
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-8 h-8 text-white/60" />
+        <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
       </div>
     </section>
   );
 
   // About section
-  const AboutSection = () => (
+  const AboutSection: React.FC = () => (
     <section
       id="about"
       className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-pink-900/20 relative overflow-hidden"
@@ -266,10 +348,10 @@ const JerichoSummitWebsite = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             About the Summit
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             The premier gathering of Nigeria's most influential business leaders, innovators, and visionaries,
             driving transformation across Africa's largest economy.
           </p>
@@ -298,16 +380,16 @@ const JerichoSummitWebsite = () => {
           <GlassCard className="p-8 max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-4xl font-bold text-purple-400 mb-2">500+</div>
-                <div className="text-gray-300">Elite Attendees</div>
+                <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">500+</div>
+                <div className="text-gray-300 text-sm sm:text-base">Elite Attendees</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-pink-400 mb-2">50+</div>
-                <div className="text-gray-300">Industry Leaders</div>
+                <div className="text-3xl sm:text-4xl font-bold text-pink-400 mb-2">50+</div>
+                <div className="text-gray-300 text-sm sm:text-base">Industry Leaders</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-blue-400 mb-2">25+</div>
-                <div className="text-gray-300">Expert Sessions</div>
+                <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">25+</div>
+                <div className="text-gray-300 text-sm sm:text-base">Expert Sessions</div>
               </div>
             </div>
           </GlassCard>
@@ -317,18 +399,18 @@ const JerichoSummitWebsite = () => {
   );
 
   // Speakers section
-  const SpeakersSection = () => (
+  const SpeakersSection: React.FC = () => (
     <section id="speakers" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Keynote Speakers
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
             Industry titans and visionary leaders who are shaping Africa's business landscape
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <SpeakerCard
             name="Adebayo Ogunlesi"
             title="Chairman & CEO"
@@ -362,7 +444,7 @@ const JerichoSummitWebsite = () => {
           <p className="text-gray-400 mb-6">And many more industry leaders...</p>
           <a
             href="#speakers"
-            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all duration-300"
+            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full font-semibold hover:scale-105 transition-all duration-300"
             aria-label="View all speakers"
           >
             View All Speakers
@@ -373,21 +455,21 @@ const JerichoSummitWebsite = () => {
   );
 
   // Schedule section
-  const ScheduleSection = () => (
+  const ScheduleSection: React.FC = () => (
     <section id="schedule" className="py-20 bg-gray-900 relative">
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-pink-900/10" />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Event Schedule
           </h2>
-          <p className="text-xl text-gray-300">Three intensive days of learning, networking, and innovation</p>
+          <p className="text-base sm:text-lg md:text-xl text-gray-300">Three intensive days of learning, networking, and innovation</p>
         </div>
-        <div className="grid lg:grid-cols-3 gap-8">
-          <GlassCard className="p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <GlassCard className="p-6 sm:p-8">
             <div className="text-center mb-8">
-              <div className="text-4xl font-bold text-purple-400 mb-2">Day 1</div>
-              <div className="text-lg text-gray-300 mb-2">March 15, 2025</div>
+              <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">Day 1</div>
+              <div className="text-base sm:text-lg text-gray-300 mb-2">March 15, 2025</div>
               <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full" />
             </div>
             <div className="space-y-6">
@@ -417,10 +499,10 @@ const JerichoSummitWebsite = () => {
               />
             </div>
           </GlassCard>
-          <GlassCard className="p-8">
+          <GlassCard className="p-6 sm:p-8">
             <div className="text-center mb-8">
-              <div className="text-4xl font-bold text-blue-400 mb-2">Day 2</div>
-              <div className="text-lg text-gray-300 mb-2">March 16, 2025</div>
+              <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">Day 2</div>
+              <div className="text-base sm:text-lg text-gray-300 mb-2">March 16, 2025</div>
               <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
             </div>
             <div className="space-y-6">
@@ -450,10 +532,10 @@ const JerichoSummitWebsite = () => {
               />
             </div>
           </GlassCard>
-          <GlassCard className="p-8">
+          <GlassCard className="p-6 sm:p-8">
             <div className="text-center mb-8">
-              <div className="text-4xl font-bold text-green-400 mb-2">Day 3</div>
-              <div className="text-lg text-gray-300 mb-2">March 17, 2025</div>
+              <div className="text-3xl sm:text-4xl font-bold text-green-400 mb-2">Day 3</div>
+              <div className="text-base sm:text-lg text-gray-300 mb-2">March 17, 2025</div>
               <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto rounded-full" />
             </div>
             <div className="space-y-6">
@@ -489,18 +571,18 @@ const JerichoSummitWebsite = () => {
   );
 
   // Registration section
-  const RegistrationSection = () => {
-    const [formData, setFormData] = useState({
+  const RegistrationSection: React.FC = () => {
+    const [formData, setFormData] = useState<FormData>({
       fullName: "",
       email: "",
       phone: "",
       company: "",
       ticketType: "",
     });
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [error, setError] = useState("");
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       setError("");
 
@@ -539,25 +621,24 @@ const JerichoSummitWebsite = () => {
         <div className="absolute inset-0 bg-black/40" />
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
               Secure Your Spot
             </h2>
-            <p className="text-xl md:text-2xl text-white/90 drop-shadow-lg">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 drop-shadow-lg">
               Limited seats available - Register today for early bird pricing
             </p>
           </div>
-          <div className="grid lg:grid-cols-2 gap-12">
-            <GlassCard className="p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+            <GlassCard className="p-6 sm:p-8">
               <div className="text-center mb-8">
-                <h3 className="text-3xl font-bold text-purple-300 mb-4">Early Bird Special</h3>
-                <div className="lg:text-3xl text-md font-bold text-white mb-4">Treats and a chance to particaipate in exciting games</div>
-                <div className="text-gray-300 mb-6">
-                  
+                <h3 className="text-2xl sm:text-3xl font-bold text-purple-300 mb-4">Early Bird Special</h3>
+                <div className="text-base sm:text-lg md:text-xl font-bold text-white mb-4">
+                  Treats and a chance to participate in exciting games
                 </div>
                 <div className="w-full bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full mb-4">
                   <div className="bg-white h-2 rounded-full" style={{ width: "30%" }}></div>
                 </div>
-                <p className="text-sm text-gray-300">Only 30% of early bird tickets remaining</p>
+                <p className="text-sm sm:text-base text-gray-300">Only 30% of early bird tickets remaining</p>
               </div>
               <div className="space-y-4">
                 {[
@@ -570,20 +651,20 @@ const JerichoSummitWebsite = () => {
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                    <span className="text-white">{feature}</span>
+                    <span className="text-white text-sm sm:text-base">{feature}</span>
                   </div>
                 ))}
               </div>
               <a
                 href="#register"
-            className="inline-block m-3 text-md lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 p-2 text-white lg:px-12 lg:py-4 rounded-full  font-bold hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                className="inline-block mt-4 text-sm sm:text-base md:text-lg bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                 aria-label="Register with early bird pricing"
               >
-                Register Early Bird 
+                Register Early Bird
               </a>
             </GlassCard>
-            <GlassCard className="p-8">
-              <h3 className="text-3xl font-bold text-white mb-8 text-center">Registration Form</h3>
+            <GlassCard className="p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center">Registration Form</h3>
               {error && <p className="text-red-300 text-center mb-4">{error}</p>}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -648,7 +729,7 @@ const JerichoSummitWebsite = () => {
                 </div>
                 <button
                   type="submit"
-                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                  className={`w-full py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 ${
                     isSubmitted
                       ? "bg-green-500 text-white"
                       : "bg-gradient-to-r from-green-500 to-blue-500 text-white hover:scale-105 shadow-2xl"
@@ -667,8 +748,8 @@ const JerichoSummitWebsite = () => {
   };
 
   // Footer component
-  const Footer = () => (
-    <footer className="bg-gray-900 py-16 border-t border-gray-800">
+  const Footer: React.FC = () => (
+    <footer className="bg-gray-900 py-12 sm:py-16 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -676,20 +757,20 @@ const JerichoSummitWebsite = () => {
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-xs">JBC</span>
               </div>
-              <span className="text-xl font-bold text-white">Jericho Businessmen Club</span>
+              <span className="text-lg sm:text-xl font-bold text-white">Jericho Businessmen Club</span>
             </div>
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm sm:text-base">
               Connecting visionary leaders to shape the future of business in Africa.
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {["Home", "About", "Speakers", "Schedule", "Register"].map((item) => (
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-400 hover:text-purple-400 transition-colors"
+                    className="text-gray-400 hover:text-purple-400 transition-colors text-sm sm:text-base"
                     aria-label={`Navigate to ${item} section`}
                   >
                     {item}
@@ -699,20 +780,20 @@ const JerichoSummitWebsite = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white mb-4">Contact Us</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white mb-4">Contact Us</h3>
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
                 <Mail className="text-purple-400" size={16} />
-                <span className="text-gray-400">info@jerichobusinessclub.com</span>
+                <span className="text-gray-400 text-sm sm:text-base">info@jerichobusinessclub.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="text-purple-400" size={16} />
-                <span className="text-gray-400">+234 123 456 7890</span>
+                <span className="text-gray-400 text-sm sm:text-base">+234 123 456 7890</span>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white mb-4">Follow Us</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white mb-4">Follow Us</h3>
             <div className="flex space-x-4">
               <a
                 href="https://facebook.com"
@@ -738,7 +819,7 @@ const JerichoSummitWebsite = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm sm:text-base">
           <p>© {new Date().getFullYear()} Jericho Businessmen Club. All rights reserved.</p>
         </div>
       </div>
