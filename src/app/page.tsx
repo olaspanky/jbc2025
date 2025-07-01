@@ -107,7 +107,7 @@ const JerichoSummitWebsite: React.FC = () => {
   // Floating particle for hero section
   const FloatingParticle: React.FC<{ delay?: number }> = ({ delay = 0 }) => (
     <div
-      className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-60 animate-float"
+      className="absolute w-2 h-2 bg-gradient-to-r fromwhite to-gray-400 rounded-full opacity-60 animate-float"
       style={{
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,
@@ -229,12 +229,13 @@ const JerichoSummitWebsite: React.FC = () => {
 
   // Hero section with improved animations and responsiveness
  // Hero section with background image
+// Hero section with background image and black-and-white overlay
 const HeroSection: React.FC = () => (
   <section
     id="home"
     className="relative min-h-screen flex items-center justify-center overflow-hidden"
     style={{
-      backgroundImage: `url('/jbcaud.webp')`,
+      backgroundImage: `url('/jbcaud.webp'), linear-gradient(45deg, black, white, black, white, black, #00f2fe)`,
       backgroundSize: "cover, 400% 400%", // Image: cover, Gradient: animated
       backgroundPosition: "center, center", // Center both image and gradient
       backgroundBlendMode: "overlay", // Blend image with gradient
@@ -268,11 +269,17 @@ const HeroSection: React.FC = () => (
         }
       }
     `}</style>
-    <div className="absolute inset-0 bg-black/40" /> {/* Increased opacity for readability */}
+    {/* Black and white gradient overlay */}
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.5))",
+      }}
+    />
     {[...Array(12)].map((_, i) => (
       <FloatingParticle key={i} delay={i * 0.5} />
     ))}
-    <div className="relative z-10 text-center px-4 max-w-6xl mx-auto mt-1 lg:mt-9">
+    <div className="relative z-10 text-center px-4 max-w-6xl mt-1 lg:mt-12 mx-auto">
       <div className="space-y-6 sm:space-y-8 animate-fade-in">
         <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
           <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
