@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ChevronDown,
   Calendar,
@@ -37,6 +37,7 @@ interface CountdownBoxProps {
   value: number;
   label: string;
   color: string;
+  prevValue?: number;
 }
 
 interface SpeakerCardProps {
@@ -83,64 +84,138 @@ const JerichoSummitWebsite: React.FC = () => {
     minutes: 0,
     seconds: 0,
   });
+  const prevTimeLeft = useRef<TimeLeft>({...timeLeft});
 
-  // Countdown timer
+  // Countdown timer with animation support
   useEffect(() => {
-    const timer = setInterval(() => {
+    const calculateTimeLeft = () => {
       const eventDate = new Date("2025-10-15T09:00:00").getTime();
       const now = new Date().getTime();
       const difference = eventDate - now;
 
       if (difference > 0) {
-        setTimeLeft({
+        const newTimeLeft = {
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        });
+        };
+        
+        // Only update if values have changed
+        if (JSON.stringify(newTimeLeft) !== JSON.stringify(timeLeft)) {
+          prevTimeLeft.current = {...timeLeft};
+          setTimeLeft(newTimeLeft);
+        }
       }
-    }, 1000); // Reduced interval for smoother countdown
+    };
 
-    return () => clearInterval(timer);
-  }, []);
+    // Initial calculation
+    calculateTimeLeft();
+
+    // Animation frame based timer for smoother updates
+    let animationFrameId: number;
+    let lastUpdateTime = performance.now();
+
+    const updateTimer = (currentTime: number) => {
+      if (currentTime - lastUpdateTime >= 1000) { // Update every second
+        calculateTimeLeft();
+        lastUpdateTime = currentTime;
+      }
+      animationFrameId = requestAnimationFrame(updateTimer);
+    };
+
+    animationFrameId = requestAnimationFrame(updateTimer);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [timeLeft]);
 
   // Floating particle for hero section
-  const FloatingParticle: React.FC<{ delay?: number }> = ({ delay = 0 }) => (
-    <div
-      className="absolute w-2 h-2 bg-gradient-to-r fromwhite to-gray-400 rounded-full opacity-60 animate-float"
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        animationDelay: `${delay}s`,
-        animationDuration: `${3 + Math.random() * 2}s`,
-      }}
-    />
-  );
+  const FloatingParticle: React.FC<{ delay?: number }> = React.memo(({ delay = 0 }) => {
+    const left = useRef(`${Math.random() * 100}%`);
+    const top = useRef(`${Math.random() * 100}%`);
+    const duration = useRef(`${3 + Math.random() * 2}s`);
+
+    return (
+      <div
+        className="absolute w-2 h-2 bg-gradient-to-r from-white to-gray-400 rounded-full opacity-60 animate-float"
+        style={{
+          left: left.current,
+          top: top.current,
+          animationDelay: `${delay}s`,
+          animationDuration: duration.current,
+        }}
+      />
+    );
+  });
 
   // Glass card component
-  const GlassCard: React.FC<GlassCardProps> = ({ children, className = "", hover = true }) => (
+  const GlassCard: React.FC<GlassCardProps> = React.memo(({ children, className = "", hover = true }) => {
+  const hoverClasses = hover 
+    ? "hover:bg-white/20 hover:border-white/30 hover:scale-[1.02] hover:-translate-y-1" 
+    : "";
+    
+  return (
     <div
       className={`
         backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl
-        ${hover ? "hover:bg-white/20 hover:border-white/30 hover:scale-105 hover:-translate-y-2" : ""}
-        transition-all duration-500 ease-out shadow-2xl
+        transition-all duration-300 ease-in-out shadow-xl
+        ${hoverClasses}
         ${className}
       `}
     >
       {children}
     </div>
   );
+});
 
-  // Countdown box component
-  const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label, color }) => (
-    <div className={`text-center p-4 rounded-xl bg-gradient-to-br ${color} backdrop-blur-lg`}>
-      <div className="text-xl sm:text-2xl md:text-4xl font-bold text-white mb-1">{value}</div>
-      <div className="text-[8px] sm:text-xs md:text-sm text-white/80 uppercase tracking-wide">{label}</div>
-    </div>
-  );
+  // Countdown box component with animation
+  const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label, color, prevValue }) => {
+    const [displayValue, setDisplayValue] = useState(value);
+    const [animate, setAnimate] = useState(false);
+
+    useEffect(() => {
+      if (value !== displayValue) {
+        setAnimate(true);
+        const timer = setTimeout(() => {
+          setDisplayValue(value);
+          setAnimate(false);
+        }, 300); // Match this with CSS transition duration
+        
+        return () => clearTimeout(timer);
+      }
+    }, [value, displayValue]);
+
+    return (
+      <div className={`text-center p-4 rounded-xl bg-gradient-to-br ${color} backdrop-blur-lg overflow-hidden`}>
+        <div className="relative h-12 sm:h-16 md:h-24 flex items-center justify-center">
+          <div 
+            className={`absolute text-xl sm:text-2xl md:text-4xl font-bold text-white mb-1 transition-all duration-300 transform ${
+              animate ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+            }`}
+            key={`current-${value}`}
+          >
+            {displayValue}
+          </div>
+          {animate && (
+            <div 
+              className={`absolute text-xl sm:text-2xl md:text-4xl font-bold text-white mb-1 transition-all duration-300 transform ${
+                animate ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+              }`}
+              key={`previous-${prevValue}`}
+            >
+              {prevValue}
+            </div>
+          )}
+        </div>
+        <div className="text-[8px] sm:text-xs md:text-sm text-white/80 uppercase tracking-wide">{label}</div>
+      </div>
+    );
+  };
 
   // Speaker card component
-  const SpeakerCard: React.FC<SpeakerCardProps> = ({ name, title, company, initials, gradient }) => (
+  const SpeakerCard: React.FC<SpeakerCardProps> = React.memo(({ name, title, company, initials, gradient }) => (
     <GlassCard className="p-6 text-center group">
       <div
         className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br ${gradient} group-hover:scale-110 transition-transform duration-300`}
@@ -151,19 +226,19 @@ const JerichoSummitWebsite: React.FC = () => {
       <p className="text-purple-300 font-semibold mb-1">{title}</p>
       <p className="text-gray-300 text-sm">{company}</p>
     </GlassCard>
-  );
+  ));
 
   // Schedule item component
-  const ScheduleItem: React.FC<ScheduleItemProps> = ({ time, title, description, color }) => (
+  const ScheduleItem: React.FC<ScheduleItemProps> = React.memo(({ time, title, description, color }) => (
     <div className={`border-l-4 ${color} pl-4 py-2`}>
       <div className="text-purple-300 font-bold text-sm">{time}</div>
       <div className="text-white font-semibold">{title}</div>
       <div className="text-gray-400 text-sm">{description}</div>
     </div>
-  );
+  ));
 
   // Feature card component
-  const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description, gradient }) => (
+  const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ icon: Icon, title, description, gradient }) => (
     <GlassCard className="p-8 text-center group">
       <div
         className={`w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center bg-gradient-to-br ${gradient} group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
@@ -173,10 +248,10 @@ const JerichoSummitWebsite: React.FC = () => {
       <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
       <p className="text-gray-300 leading-relaxed">{description}</p>
     </GlassCard>
-  );
+  ));
 
   // Navigation component
-  const Navigation: React.FC<NavigationProps> = ({ isMenuOpen, setIsMenuOpen }) => (
+  const Navigation: React.FC<NavigationProps> = React.memo(({ isMenuOpen, setIsMenuOpen }) => (
     <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/20 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -225,136 +300,162 @@ const JerichoSummitWebsite: React.FC = () => {
         )}
       </div>
     </nav>
-  );
+  ));
 
-  // Hero section with improved animations and responsiveness
- // Hero section with background image
-// Hero section with background image and black-and-white overlay
-const HeroSection: React.FC = () => (
-  <section
-    id="home"
-    className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    style={{
-      backgroundImage: `url('/jbcaud.webp'), linear-gradient(45deg, black, white, black, white, black, #00f2fe)`,
-      backgroundSize: "cover, 400% 400%", // Image: cover, Gradient: animated
-      backgroundPosition: "center, center", // Center both image and gradient
-      backgroundBlendMode: "overlay", // Blend image with gradient
-      animation: "gradientShift 15s ease infinite",
-    }}
-  >
-    <style jsx>{`
-      @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%, center;
-        }
-        50% {
-          background-position: 100% 50%, center;
-        }
-        100% {
-          background-position: 0% 50%, center;
-        }
-      }
-      @keyframes float {
-        0% {
-          transform: translateY(0) scale(1);
-          opacity: 0.6;
-        }
-        50% {
-          transform: translateY(-20px) scale(1.2);
-          opacity: 0.8;
-        }
-        100% {
-          transform: translateY(0) scale(1);
-          opacity: 0.6;
-        }
-      }
-    `}</style>
-    {/* Black and white gradient overlay */}
-    <div
-      className="absolute inset-0"
-      style={{
-        backgroundImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.5))",
-      }}
-    />
-    {[...Array(12)].map((_, i) => (
-      <FloatingParticle key={i} delay={i * 0.5} />
-    ))}
-    <div className="relative z-10 text-center px-4 max-w-6xl mt-1 lg:mt-12 mx-auto">
-      <div className="space-y-6 sm:space-y-8 animate-fade-in">
-        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
-          <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
-          <span className="block bg-white bg-clip-text text-transparent drop-shadow-lg">
-            2025
-          </span>
-        </h1>
-        <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
-          Where Visionary Leaders Converge to Shape the Future of Business
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-          <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-            <div className="flex items-center justify-center space-x-2 text-white mb-2">
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
+  // Hero section with improved animations
+  const HeroSection: React.FC = () => {
+    const particles = useRef([...Array(12)].map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: i * 0.5,
+      duration: `${3 + Math.random() * 2}s`
+    })));
+
+    return (
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: `url('/jbcaud.webp'), linear-gradient(45deg, black, white, black, white, black, #00f2fe)`,
+          backgroundSize: "cover, 400% 400%",
+          backgroundPosition: "center, center",
+          backgroundBlendMode: "overlay",
+        }}
+      >
+        <style jsx>{`
+          @keyframes gradientShift {
+            0% {
+              background-position: 0% 50%, center;
+            }
+            50% {
+              background-position: 100% 50%, center;
+            }
+            100% {
+              background-position: 0% 50%, center;
+            }
+          }
+          @keyframes float {
+            0% {
+              transform: translateY(0) scale(1);
+              opacity: 0.6;
+            }
+            50% {
+              transform: translateY(-20px) scale(1.2);
+              opacity: 0.8;
+            }
+            100% {
+              transform: translateY(0) scale(1);
+              opacity: 0.6;
+            }
+          }
+          .animate-float {
+            animation: float var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+          }
+        `}</style>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "linear-gradient(to bottom, rgba(75, 85, 99, 0.3), rgba(0, 0, 0, 0.5))"
+          }}
+        />
+        {particles.current.map((particle) => (
+          <div
+            key={particle.id}
+            className="absolute w-2 h-2 bg-gradient-to-r from-white to-gray-400 rounded-full opacity-60"
+            style={{
+              left: particle.left,
+              top: particle.top,
+              animationDuration: particle.duration,
+              animationDelay: `${particle.delay}s`,
+              // Using CSS variables for animation
+              ['--duration' as any]: particle.duration,
+              ['--delay' as any]: `${particle.delay}s`,
+            }}
+          />
+        ))}
+        <div className="relative z-10 text-center px-4 max-w-6xl mt-1 lg:mt-12 mx-auto">
+          <div className="space-y-6 sm:space-y-8 animate-fade-in">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
+              <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
+              <span className="block bg-white bg-clip-text text-transparent drop-shadow-lg">
+                2025
+              </span>
+            </h1>
+            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
+              Where Visionary Leaders Converge to Shape the Future of Business
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+              <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
+                <div className="flex items-center justify-center space-x-2 text-white mb-2">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
+                </div>
+                <div className="text-white/70 text-sm sm:text-base">2025</div>
+              </GlassCard>
+              <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
+                <div className="flex items-center justify-center space-x-2 text-white mb-2">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
+                </div>
+                <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
+              </GlassCard>
             </div>
-            <div className="text-white/70 text-sm sm:text-base">2025</div>
-          </GlassCard>
-          <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-            <div className="flex items-center justify-center space-x-2 text-white mb-2">
-              <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
-            </div>
-            <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
-          </GlassCard>
-        </div>
-        <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
-          <div className="text-center mb-4">
-            <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
-            <div className="grid grid-cols-4 gap-2 sm:gap-4">
-              <CountdownBox
-                value={timeLeft.days}
-                label="Days"
-                color="black"
-              />
-              <CountdownBox
-                value={timeLeft.hours}
-                label="Hours"
-                color="black"
-              />
-              <CountdownBox
-                value={timeLeft.minutes}
-                label="Minutes"
-                color="black"
-              />
-              <CountdownBox
-                value={timeLeft.seconds}
-                label="Seconds"
-                color="black"
-              />
-            </div>
+            <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
+              <div className="text-center mb-4">
+                <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
+                <div className="grid grid-cols-4 gap-2 sm:gap-4">
+                  <CountdownBox
+                    value={timeLeft.days}
+                    prevValue={prevTimeLeft.current.days}
+                    label="Days"
+                    color="from-gray-800 to-gray-900"
+                  />
+                  <CountdownBox
+                    value={timeLeft.hours}
+                    prevValue={prevTimeLeft.current.hours}
+                    label="Hours"
+                    color="from-gray-800 to-gray-900"
+                  />
+                  <CountdownBox
+                    value={timeLeft.minutes}
+                    prevValue={prevTimeLeft.current.minutes}
+                    label="Minutes"
+                    color="from-gray-800 to-gray-900"
+                  />
+                  <CountdownBox
+                    value={timeLeft.seconds}
+                    prevValue={prevTimeLeft.current.seconds}
+                    label="Seconds"
+                    color="from-gray-800 to-gray-900"
+                  />
+                </div>
+              </div>
+            </GlassCard>
+            <a
+              href="#register"
+              className="inline-block text-sm sm:text-base md:text-lg bg-gradient-to-r from-gray-600 via-gray-600 to-gray-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+              aria-label="Register for the summit"
+            >
+              Register Now - Early Bird Special
+            </a>
           </div>
-        </GlassCard>
-        <a
-          href="#register"
-          className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-gray-600 via-gray-600 to-gray-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-          aria-label="Register for the summit"
-        >
-          Register Now - Early Bird Special
-        </a>
-      </div>
-    </div>
-    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
-    </div>
-  </section>
-);
+        </div>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
+        </div>
+      </section>
+    );
+  };
 
   // About section
   const AboutSection: React.FC = () => (
     <section
       id="about"
-      className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-pink-900/20 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-900/10 to-purple-900/10" />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -409,7 +510,8 @@ const HeroSection: React.FC = () => (
 
   // Speakers section
   const SpeakersSection: React.FC = () => (
-    <section id="speakers" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900">
+    <section id="speakers" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-pink-900/10" />
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -465,8 +567,8 @@ const HeroSection: React.FC = () => (
 
   // Schedule section
   const ScheduleSection: React.FC = () => (
-    <section id="schedule" className="py-20 bg-gray-900 relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-pink-900/10" />
+    <section id="schedule" className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-900/10 to-purple-900/10" />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -619,15 +721,9 @@ const HeroSection: React.FC = () => (
     return (
       <section
         id="register"
-        className="py-20 relative overflow-hidden"
-        style={{
-          background:
-            "linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c)",
-          backgroundSize: "400% 400%",
-          animation: "gradientShift 15s ease infinite",
-        }}
+        className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/10 to-purple-900/10" />
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
