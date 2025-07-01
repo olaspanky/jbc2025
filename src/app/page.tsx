@@ -283,7 +283,7 @@ const HeroSection: React.FC = () => (
       <div className="space-y-6 sm:space-y-8 animate-fade-in">
         <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
           <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
-          <span className="block bg-black bg-clip-text text-transparent drop-shadow-lg">
+          <span className="block bg-white bg-clip-text text-transparent drop-shadow-lg">
             2025
           </span>
         </h1>
