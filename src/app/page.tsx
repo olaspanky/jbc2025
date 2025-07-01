@@ -228,116 +228,118 @@ const JerichoSummitWebsite: React.FC = () => {
   );
 
   // Hero section with improved animations and responsiveness
-  const HeroSection: React.FC = () => (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe)",
-        backgroundSize: "400% 400%",
-        animation: "gradientShift 15s ease infinite",
-      }}
-    >
-      <style jsx>{`
-        @keyframes gradientShift {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
+ // Hero section with background image
+const HeroSection: React.FC = () => (
+  <section
+    id="home"
+    className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    style={{
+      backgroundImage: `url('/jbcaud.webp')`,
+      backgroundSize: "cover, 400% 400%", // Image: cover, Gradient: animated
+      backgroundPosition: "center, center", // Center both image and gradient
+      backgroundBlendMode: "overlay", // Blend image with gradient
+      animation: "gradientShift 15s ease infinite",
+    }}
+  >
+    <style jsx>{`
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%, center;
         }
-        @keyframes float {
-          0% {
-            transform: translateY(0) scale(1);
-            opacity: 0.6;
-          }
-          50% {
-            transform: translateY(-20px) scale(1.2);
-            opacity: 0.8;
-          }
-          100% {
-            transform: translateY(0) scale(1);
-            opacity: 0.6;
-          }
+        50% {
+          background-position: 100% 50%, center;
         }
-      `}</style>
-      <div className="absolute inset-0 bg-black/30" />
-      {[...Array(12)].map((_, i) => (
-        <FloatingParticle key={i} delay={i * 0.5} />
-      ))}
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto mt-1 lg:mt-12">
-        <div className="space-y-6 sm:space-y-8 animate-fade-in">
-          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
-            <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
-            <span className="block bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
-              2025
-            </span>
-          </h1>
-          <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
-            Where Visionary Leaders Converge to Shape the Future of Business
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-            <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-              <div className="flex items-center justify-center space-x-2 text-purple-300 mb-2">
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
-              </div>
-              <div className="text-white/70 text-sm sm:text-base">2025</div>
-            </GlassCard>
-            <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-              <div className="flex items-center justify-center space-x-2 text-pink-300 mb-2">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
-              </div>
-              <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
-            </GlassCard>
-          </div>
-          <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
-            <div className="text-center mb-4">
-              <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
-              <div className="grid grid-cols-4 gap-2 sm:gap-4">
-                <CountdownBox
-                  value={timeLeft.days}
-                  label="Days"
-                  color="from-purple-500 to-purple-600"
-                />
-                <CountdownBox
-                  value={timeLeft.hours}
-                  label="Hours"
-                  color="from-pink-500 to-pink-600"
-                />
-                <CountdownBox
-                  value={timeLeft.minutes}
-                  label="Minutes"
-                  color="from-blue-500 to-blue-600"
-                />
-                <CountdownBox
-                  value={timeLeft.seconds}
-                  label="Seconds"
-                  color="from-green-500 to-green-600"
-                />
-              </div>
+        100% {
+          background-position: 0% 50%, center;
+        }
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(-20px) scale(1.2);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 0.6;
+        }
+      }
+    `}</style>
+    <div className="absolute inset-0 bg-black/40" /> {/* Increased opacity for readability */}
+    {[...Array(12)].map((_, i) => (
+      <FloatingParticle key={i} delay={i * 0.5} />
+    ))}
+    <div className="relative z-10 text-center px-4 max-w-6xl mx-auto mt-1 lg:mt-9">
+      <div className="space-y-6 sm:space-y-8 animate-fade-in">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
+          <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
+          <span className="block bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
+            2025
+          </span>
+        </h1>
+        <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
+          Where Visionary Leaders Converge to Shape the Future of Business
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+          <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
+            <div className="flex items-center justify-center space-x-2 text-purple-300 mb-2">
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
             </div>
+            <div className="text-white/70 text-sm sm:text-base">2025</div>
           </GlassCard>
-          <a
-            href="#register"
-            className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-            aria-label="Register for the summit"
-          >
-            Register Now - Early Bird Special
-          </a>
+          <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
+            <div className="flex items-center justify-center space-x-2 text-pink-300 mb-2">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
+            </div>
+            <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
+          </GlassCard>
         </div>
+        <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
+          <div className="text-center mb-4">
+            <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
+            <div className="grid grid-cols-4 gap-2 sm:gap-4">
+              <CountdownBox
+                value={timeLeft.days}
+                label="Days"
+                color="from-purple-500 to-purple-600"
+              />
+              <CountdownBox
+                value={timeLeft.hours}
+                label="Hours"
+                color="from-pink-500 to-pink-600"
+              />
+              <CountdownBox
+                value={timeLeft.minutes}
+                label="Minutes"
+                color="from-blue-500 to-blue-600"
+              />
+              <CountdownBox
+                value={timeLeft.seconds}
+                label="Seconds"
+                color="from-green-500 to-green-600"
+              />
+            </div>
+          </div>
+        </GlassCard>
+        <a
+          href="#register"
+          className="inline-block text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+          aria-label="Register for the summit"
+        >
+          Register Now - Early Bird Special
+        </a>
       </div>
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
-      </div>
-    </section>
-  );
+    </div>
+    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
+    </div>
+  </section>
+);
 
   // About section
   const AboutSection: React.FC = () => (
