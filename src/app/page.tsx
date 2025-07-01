@@ -270,7 +270,7 @@ const JerichoSummitWebsite: React.FC = () => {
       {[...Array(12)].map((_, i) => (
         <FloatingParticle key={i} delay={i * 0.5} />
       ))}
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto mt-1 lg:mt-12">
         <div className="space-y-6 sm:space-y-8 animate-fade-in">
           <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
             <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
