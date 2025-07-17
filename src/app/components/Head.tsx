@@ -2,19 +2,37 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, MapPin, ChevronDown, Clock, Users, Award } from 'lucide-react';
 
 const ProfessionalSummitHero = () => {
-  // Image configuration - easily add more images here
+  // Image configuration - desktop and mobile versions
   const backgroundImages = [
-    '/images/ai3.jpg',
-    '/images/aii.jpg',
-    '/images/ai4.jpg',
-    // Add more images here as needed
-    // '/images/ai6.jpg',
-    // '/images/ai7.jpg',
+    {
+      desktop: '/images/ai3.jpg',
+      mobile: '/images/aii.jpg'
+    },
+    {
+      desktop: '/images/aii.jpg',
+      mobile: '/images/aii.jpg'
+    },
+    {
+      desktop: '/images/ai4.jpg',
+      mobile: '/images/ai4.jpg'
+    },
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile on mount and resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   // Calculate initial time left
   const targetDate = new Date('2025-11-21T00:00:00').getTime();
@@ -44,24 +62,25 @@ const ProfessionalSummitHero = () => {
     size: number;
   }>>([]);
 
-  // Smooth background image transition
-  useEffect(() => {
-    const transitionDuration = 4000; // 4 seconds display time
-    const fadeTime = 1500; // 1.5 seconds fade time
+  // Smooth crossfade background image transition
+ // Smooth crossfade background image transition
+useEffect(() => {
+  const transitionDuration = 5000; // 5 seconds per image
+  const fadeDuration = 2000; // 2 seconds crossfade
 
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      
-      setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-        setNextImageIndex((prev) => (prev + 1) % backgroundImages.length);
-        setIsTransitioning(false);
-      }, fadeTime / 2);
-    }, transitionDuration);
+  const interval = setInterval(() => {
+    // Calculate next index (wrapping around to 0 if at end)
+    const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
+    setNextImageIndex(nextIndex);
+    
+    // After fadeDuration, make the next image the current one
+    setTimeout(() => {
+      setCurrentImageIndex(nextIndex);
+    }, fadeDuration);
+  }, transitionDuration);
 
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
-
+  return () => clearInterval(interval);
+}, [currentImageIndex, backgroundImages.length]); // Add currentImageIndex to dependencies
   // Countdown timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,6 +133,11 @@ const ProfessionalSummitHero = () => {
     </div>
   );
 
+  // Get the appropriate image URL based on device
+  const getImageUrl = (index: number) => {
+    return isMobile ? backgroundImages[index].mobile : backgroundImages[index].desktop;
+  };
+
   return (
     <section
       id="home"
@@ -121,26 +145,28 @@ const ProfessionalSummitHero = () => {
     >
       {/* Smooth Background Image Transition */}
       <div className="absolute inset-0 z-0">
-        {/* Current Image */}
+        {/* Current Image - always visible but may be fading out */}
         <div 
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ease-in-out"
           style={{
-            backgroundImage: `url('${backgroundImages[currentImageIndex]}')`,
-            opacity: isTransitioning ? 0 : 1,
+            backgroundImage: `url('${getImageUrl(currentImageIndex)}')`,
+            opacity: currentImageIndex === nextImageIndex ? 1 : 0,
+            zIndex: 10,
           }}
         />
         
-        {/* Next Image (for smooth transition) */}
+        {/* Next Image - fading in */}
         <div 
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1500 ease-in-out"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ease-in-out"
           style={{
-            backgroundImage: `url('${backgroundImages[nextImageIndex]}')`,
-            opacity: isTransitioning ? 1 : 0,
+            backgroundImage: `url('${getImageUrl(nextImageIndex)}')`,
+            opacity: currentImageIndex === nextImageIndex ? 0 : 1,
+            zIndex: 9,
           }}
         />
         
         {/* Gradient Overlay */}
-       
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-20" />
       </div>
 
       <style jsx>{`
@@ -177,8 +203,8 @@ const ProfessionalSummitHero = () => {
           transition-property: opacity;
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .duration-1500 {
-          transition-duration: 1500ms;
+        .duration-2000 {
+          transition-duration: 2000ms;
         }
         .ease-in-out {
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -197,12 +223,14 @@ const ProfessionalSummitHero = () => {
             '--delay': `${particle.delay}s`,
             width: `${particle.size}px`,
             height: `${particle.size}px`,
+            zIndex: 15,
           } as React.CSSProperties}
         />
       ))}
 
       {/* Main Content - Centered within Left Side */}
-      <div className="relative z-10 text-center px-6 py-12 lg:max-w-5xl lg:ml-12">
+      <div className="relative z-30 text-center px-6 py-12 lg:max-w-5xl lg:ml-12">
+        {/* ... rest of your content remains exactly the same ... */}
         <div className="space-y-8 pt-12 lg:pt-0">
           {/* Event Badge */}
           <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-full px-6 py-3 backdrop-blur-sm animate-fade-in-up">
@@ -215,7 +243,6 @@ const ProfessionalSummitHero = () => {
             <h1 className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold leading-tight text-center">
               <span className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl mb-4 relative overflow-hidden">
                 JERICHO BUSINESSMEN CLUB
-                {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div> */}
               </span>
               <span className="block text-2xl sm:text-3xl md:text-3xl 2xl:text-3xl text-white bg-clip-text font-light">
                 SOCIO-ECONOMIC SUMMIT
@@ -285,9 +312,6 @@ const ProfessionalSummitHero = () => {
           </div>
         </div>
       </div>
-
-      {/* Scroll Indicator - Enhanced */}
-    
     </section>
   );
 };
