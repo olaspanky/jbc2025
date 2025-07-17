@@ -453,28 +453,24 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
     return (
       <section
         id="register"
-        className="py-20 bg-gray-500 relative overflow-hidden"
+        className="py-20 bg-gray-100 relative overflow-hidden"
       >
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-blue-900 drop-shadow-2xl">
               Secure Your Spot
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-white/90 drop-shadow-lg">
+            <p className="text-base sm:text-lg md:text-xl text-gray-900 drop-shadow-lg">
               Limited seats available - Register today for early bird pricing
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             <GlassCard className="p-6 sm:p-8">
               <div className="text-center mb-8">
-                <h3 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-4">Early Bird Special</h3>
-                <div className="text-base sm:text-lg md:text-xl font-bold text-white mb-4">
-                  Treats and a chance to participate in exciting games
-                </div>
-                <div className="w-full bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full mb-4">
-                  <div className="bg-white h-2 rounded-full" style={{ width: "30%" }}></div>
-                </div>
-                <p className="text-sm sm:text-base text-gray-300">Only 30% of early bird tickets remaining</p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-4">Early Bird Special</h3>
+            
+               
+                <p className="text-sm sm:text-base text-black">Only 30% of early bird tickets remaining</p>
               </div>
               <div className="space-y-4">
                 {[
@@ -486,8 +482,8 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                   "Post-event community access",
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                    <span className="text-white text-sm sm:text-base">{feature}</span>
+                    <CheckCircle className="w-5 h-5 text-blue-900 flex-shrink-0" />
+                    <span className="text-gray-500 text-sm sm:text-base">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -500,7 +496,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
               </a>
             </GlassCard>
             <GlassCard className="p-6 sm:p-8">
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center">Registration Form</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-black mb-8 text-center">Registration Form</h3>
               {error && <p className="text-red-300 text-center mb-4">{error}</p>}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -509,7 +505,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                     placeholder="Full Name *"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
+                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
                     required
                     aria-label="Full Name"
                   />
@@ -520,7 +516,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                     placeholder="Email Address *"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
+                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
                     required
                     aria-label="Email Address"
                   />
@@ -531,7 +527,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                     placeholder="Phone Number *"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
+                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
                     required
                     aria-label="Phone Number"
                   />
@@ -542,7 +538,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                     placeholder="Company/Organization *"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
+                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
                     required
                     aria-label="Company or Organization"
                   />
@@ -551,7 +547,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                   <select
                     value={formData.ticketType}
                     onChange={(e) => setFormData({ ...formData, ticketType: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
+                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
                     required
                     aria-label="Select Ticket Type"
                   >
@@ -568,7 +564,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                   className={`w-full py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 ${
                     isSubmitted
                       ? "bg-green-500 text-white"
-                      : "bg-blue-600 text-white hover:scale-105 shadow-2xl"
+                      : "bg-blue-900 text-white hover:scale-105 shadow-2xl"
                   }`}
                   disabled={isSubmitted}
                   aria-label={isSubmitted ? "Registration Submitted" : "Submit Registration"}
