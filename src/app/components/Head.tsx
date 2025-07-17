@@ -6,7 +6,7 @@ const ProfessionalSummitHero = () => {
   const backgroundImages = [
     {
       desktop: '/images/ai3.jpg',
-      mobile: '/images/aii.jpg'
+      mobile: '/images/ai3mobile.jpg'
     },
     {
       desktop: '/images/aii.jpg',
