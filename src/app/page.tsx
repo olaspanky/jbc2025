@@ -18,6 +18,9 @@ import {
   Zap,
   Target,
 } from "lucide-react";
+import Head from "./components/Head";
+import About from "./components/About";
+import Image from "next/image";
 
 // Interfaces for TypeScript
 interface TimeLeft {
@@ -87,68 +90,9 @@ const JerichoSummitWebsite: React.FC = () => {
   const prevTimeLeft = useRef<TimeLeft>({...timeLeft});
 
   // Countdown timer with animation support
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const eventDate = new Date("2025-10-15T09:00:00").getTime();
-      const now = new Date().getTime();
-      const difference = eventDate - now;
-
-      if (difference > 0) {
-        const newTimeLeft = {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        };
-        
-        // Only update if values have changed
-        if (JSON.stringify(newTimeLeft) !== JSON.stringify(timeLeft)) {
-          prevTimeLeft.current = {...timeLeft};
-          setTimeLeft(newTimeLeft);
-        }
-      }
-    };
-
-    // Initial calculation
-    calculateTimeLeft();
-
-    // Animation frame based timer for smoother updates
-    let animationFrameId: number;
-    let lastUpdateTime = performance.now();
-
-    const updateTimer = (currentTime: number) => {
-      if (currentTime - lastUpdateTime >= 1000) { // Update every second
-        calculateTimeLeft();
-        lastUpdateTime = currentTime;
-      }
-      animationFrameId = requestAnimationFrame(updateTimer);
-    };
-
-    animationFrameId = requestAnimationFrame(updateTimer);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [timeLeft]);
 
   // Floating particle for hero section
-  const FloatingParticle: React.FC<{ delay?: number }> = React.memo(({ delay = 0 }) => {
-    const left = useRef(`${Math.random() * 100}%`);
-    const top = useRef(`${Math.random() * 100}%`);
-    const duration = useRef(`${3 + Math.random() * 2}s`);
 
-    return (
-      <div
-        className="absolute w-2 h-2 bg-gradient-to-r from-white to-gray-400 rounded-full opacity-60 animate-float"
-        style={{
-          left: left.current,
-          top: top.current,
-          animationDelay: `${delay}s`,
-          animationDuration: duration.current,
-        }}
-      />
-    );
-  });
 
   // Glass card component
   const GlassCard: React.FC<GlassCardProps> = React.memo(({ children, className = "", hover = true }) => {
@@ -169,6 +113,19 @@ const JerichoSummitWebsite: React.FC = () => {
     </div>
   );
 });
+
+const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React.ElementType; title: string; description: string; gradient: string }) => (
+    <div className="group relative flex items-center space-x-4 p-4 ">
+      <div className={`p-3 rounded-full bg-white text-white`}>
+        <Icon className="w-6 h-6 text-blue-900" />
+      </div>
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold text-blue-500 transition-colors duration-300">{title}</h3>
+        <p className="text-sm text-black mt-1">{description}</p>
+      </div>
+      <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </div>
+  );
 
   // Countdown box component with animation
   const CountdownBox: React.FC<CountdownBoxProps> = ({ value, label, color, prevValue }) => {
@@ -239,68 +196,19 @@ const JerichoSummitWebsite: React.FC = () => {
 
   // Feature card component
   const FeatureCard: React.FC<FeatureCardProps> = React.memo(({ icon: Icon, title, description, gradient }) => (
-    <GlassCard className="p-8 text-center group">
+    <GlassCard className="p-2 text-center group">
       <div
         className={`w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center bg-gradient-to-br ${gradient} group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
       >
         <Icon className="w-8 h-8 text-white" />
       </div>
-      <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-      <p className="text-gray-300 leading-relaxed">{description}</p>
+      <h3 className="text-lg font-bold text-white mb-4">{title}</h3>
+      <p className="text-sm text-gray-300 leading-relaxed">{description}</p>
     </GlassCard>
   ));
 
   // Navigation component
-  const Navigation: React.FC<NavigationProps> = React.memo(({ isMenuOpen, setIsMenuOpen }) => (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/20 border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">JBC</span>
-            </div>
-            <span className="text-xl font-bold text-white hidden sm:block">Jericho Businessmen Club</span>
-          </div>
-          <div className="hidden md:flex space-x-8">
-            {["Home", "About", "Speakers", "Schedule", "Register"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-white hover:text-purple-300 transition-colors duration-200 font-medium"
-                aria-label={`Navigate to ${item} section`}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-white hover:text-purple-300 transition-colors"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-        {isMenuOpen && (
-          <div className="md:hidden backdrop-blur-xl bg-black/40 border-t border-white/10">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {["Home", "About", "Speakers", "Schedule", "Register"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="block px-3 py-2 text-white hover:text-purple-300 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label={`Navigate to ${item} section`}
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  ));
+ 
 
   // Hero section with improved animations
   const HeroSection: React.FC = () => {
@@ -313,198 +221,22 @@ const JerichoSummitWebsite: React.FC = () => {
     })));
 
     return (
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundImage: `url('/jbcaud.webp'), linear-gradient(45deg, black, white, black, white, black, #00f2fe)`,
-          backgroundSize: "cover, 400% 400%",
-          backgroundPosition: "center, center",
-          backgroundBlendMode: "overlay",
-        }}
-      >
-        <style jsx>{`
-          @keyframes gradientShift {
-            0% {
-              background-position: 0% 50%, center;
-            }
-            50% {
-              background-position: 100% 50%, center;
-            }
-            100% {
-              background-position: 0% 50%, center;
-            }
-          }
-          @keyframes float {
-            0% {
-              transform: translateY(0) scale(1);
-              opacity: 0.6;
-            }
-            50% {
-              transform: translateY(-20px) scale(1.2);
-              opacity: 0.8;
-            }
-            100% {
-              transform: translateY(0) scale(1);
-              opacity: 0.6;
-            }
-          }
-          .animate-float {
-            animation: float var(--duration) ease-in-out infinite;
-            animation-delay: var(--delay);
-          }
-        `}</style>
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "linear-gradient(to bottom, rgba(75, 85, 99, 0.3), rgba(0, 0, 0, 0.5))"
-          }}
-        />
-        {particles.current.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute w-2 h-2 bg-gradient-to-r from-white to-gray-400 rounded-full opacity-60"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              animationDuration: particle.duration,
-              animationDelay: `${particle.delay}s`,
-              // Using CSS variables for animation
-              ['--duration' as any]: particle.duration,
-              ['--delay' as any]: `${particle.delay}s`,
-            }}
-          />
-        ))}
-        <div className="relative z-10 text-center px-4 max-w-6xl mt-1 lg:mt-12 mx-auto">
-          <div className="space-y-6 sm:space-y-8 animate-fade-in">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-tight">
-              <span className="block text-white mb-4 drop-shadow-2xl">JBC SUMMIT</span>
-              <span className="block bg-white bg-clip-text text-transparent drop-shadow-lg">
-                2025
-              </span>
-            </h1>
-            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
-              Where Visionary Leaders Converge to Shape the Future of Business
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-              <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-                <div className="flex items-center justify-center space-x-2 text-white mb-2">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="text-base sm:text-lg md:text-2xl font-bold">March 15-17</span>
-                </div>
-                <div className="text-white/70 text-sm sm:text-base">2025</div>
-              </GlassCard>
-              <GlassCard className="p-4 sm:p-6 text-center min-w-[180px] sm:min-w-[200px]">
-                <div className="flex items-center justify-center space-x-2 text-white mb-2">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="text-base sm:text-lg md:text-2xl font-bold">Ibadan, Nigeria</span>
-                </div>
-                <div className="text-white/70 text-sm sm:text-base">Civic Centre</div>
-              </GlassCard>
-            </div>
-            <GlassCard className="p-4 sm:p-6 max-w-2xl mx-auto">
-              <div className="text-center mb-4">
-                <h3 className="text-base sm:text-lg text-white/80 mb-2">Event Starts In</h3>
-                <div className="grid grid-cols-4 gap-2 sm:gap-4">
-                  <CountdownBox
-                    value={timeLeft.days}
-                    prevValue={prevTimeLeft.current.days}
-                    label="Days"
-                    color="from-gray-800 to-gray-900"
-                  />
-                  <CountdownBox
-                    value={timeLeft.hours}
-                    prevValue={prevTimeLeft.current.hours}
-                    label="Hours"
-                    color="from-gray-800 to-gray-900"
-                  />
-                  <CountdownBox
-                    value={timeLeft.minutes}
-                    prevValue={prevTimeLeft.current.minutes}
-                    label="Minutes"
-                    color="from-gray-800 to-gray-900"
-                  />
-                  <CountdownBox
-                    value={timeLeft.seconds}
-                    prevValue={prevTimeLeft.current.seconds}
-                    label="Seconds"
-                    color="from-gray-800 to-gray-900"
-                  />
-                </div>
-              </div>
-            </GlassCard>
-            <a
-              href="#register"
-              className="inline-block text-sm sm:text-base md:text-lg bg-gradient-to-r from-gray-600 via-gray-600 to-gray-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-              aria-label="Register for the summit"
-            >
-              Register Now - Early Bird Special
-            </a>
-          </div>
-        </div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
-        </div>
+      <section>
+        <Head/>
+       
       </section>
     );
   };
 
+ 
+
   // About section
   const AboutSection: React.FC = () => (
-    <section
-      id="about"
-      className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-900/10 to-purple-900/10" />
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            About the Summit
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            The premier gathering of Nigeria's most influential business leaders, innovators, and visionaries,
-            driving transformation across Africa's largest economy.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          <FeatureCard
-            icon={Zap}
-            title="Innovation"
-            description="Discover cutting-edge technologies and disruptive business models that are reshaping industries across Africa and beyond."
-            gradient="from-purple-500 to-pink-500"
-          />
-          <FeatureCard
-            icon={Users}
-            title="Networking"
-            description="Connect with C-suite executives, entrepreneurs, and thought leaders who are driving Nigeria's economic transformation."
-            gradient="from-blue-500 to-purple-500"
-          />
-          <FeatureCard
-            icon={Target}
-            title="Leadership"
-            description="Learn from industry titans and develop the strategic leadership skills needed to navigate tomorrow's challenges."
-            gradient="from-green-500 to-blue-500"
-          />
-        </div>
-        <div className="mt-16 text-center">
-          <GlassCard className="p-8 max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">500+</div>
-                <div className="text-gray-300 text-sm sm:text-base">Elite Attendees</div>
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-pink-400 mb-2">50+</div>
-                <div className="text-gray-300 text-sm sm:text-base">Industry Leaders</div>
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">25+</div>
-                <div className="text-gray-300 text-sm sm:text-base">Expert Sessions</div>
-              </div>
-            </div>
-          </GlassCard>
-        </div>
-      </div>
+<section
+  id="about"
+ 
+>
+     <About/>
     </section>
   );
 
@@ -721,9 +453,8 @@ const JerichoSummitWebsite: React.FC = () => {
     return (
       <section
         id="register"
-        className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden"
+        className="py-20 bg-gray-500 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/10 to-purple-900/10" />
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
@@ -736,7 +467,7 @@ const JerichoSummitWebsite: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             <GlassCard className="p-6 sm:p-8">
               <div className="text-center mb-8">
-                <h3 className="text-2xl sm:text-3xl font-bold text-purple-300 mb-4">Early Bird Special</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-4">Early Bird Special</h3>
                 <div className="text-base sm:text-lg md:text-xl font-bold text-white mb-4">
                   Treats and a chance to participate in exciting games
                 </div>
@@ -762,7 +493,7 @@ const JerichoSummitWebsite: React.FC = () => {
               </div>
               <a
                 href="#register"
-                className="inline-block mt-4 text-sm sm:text-base md:text-lg bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                className="inline-block mt-4 text-sm sm:text-base md:text-lg  px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                 aria-label="Register with early bird pricing"
               >
                 Register Early Bird
@@ -837,7 +568,7 @@ const JerichoSummitWebsite: React.FC = () => {
                   className={`w-full py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 ${
                     isSubmitted
                       ? "bg-green-500 text-white"
-                      : "bg-gradient-to-r from-green-500 to-blue-500 text-white hover:scale-105 shadow-2xl"
+                      : "bg-blue-600 text-white hover:scale-105 shadow-2xl"
                   }`}
                   disabled={isSubmitted}
                   aria-label={isSubmitted ? "Registration Submitted" : "Submit Registration"}
@@ -933,11 +664,11 @@ const JerichoSummitWebsite: React.FC = () => {
 
   return (
     <div className="overflow-x-hidden">
-      <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <HeroSection />
+    
       <AboutSection />
-      <SpeakersSection />
-      <ScheduleSection />
+      {/* <SpeakersSection />
+      <ScheduleSection /> */}
       <RegistrationSection />
       <Footer />
     </div>
