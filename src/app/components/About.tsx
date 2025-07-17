@@ -106,7 +106,7 @@ const AboutSection: React.FC = () => {
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center text-blue-600 font-bold mb-6">
-            <span className="text-7xl font-bold text-blue-900 mb-4">About the Summit</span>
+            <span className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold text-blue-900 mb-4">About the Summit</span>
           </div>
           
           <div className=" mx-auto">

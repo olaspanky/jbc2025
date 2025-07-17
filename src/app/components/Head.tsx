@@ -203,7 +203,7 @@ const ProfessionalSummitHero = () => {
 
       {/* Main Content - Centered within Left Side */}
       <div className="relative z-10 text-center px-6 py-12 lg:max-w-5xl lg:ml-12">
-        <div className="space-y-8 pt-20 lg:pt-0">
+        <div className="space-y-8 pt-12 lg:pt-0">
           {/* Event Badge */}
           <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-full px-6 py-3 backdrop-blur-sm animate-fade-in-up">
             <Award className="w-5 h-5 text-blue-400" />
