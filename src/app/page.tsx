@@ -22,6 +22,7 @@ import Head from "./components/Head";
 import About from "./components/About";
 import Sub from "./components/Sub";
 import Image from "next/image";
+import logo from "../../public/images/emlogo.png";
 
 // Interfaces for TypeScript
 interface TimeLeft {
@@ -587,9 +588,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xs">JBC</span>
-              </div>
+             <Image src={logo} alt="Jericho Businessmen Club Logo" width={40} height={40} className="rounded-full" />
               <span className="text-lg sm:text-xl font-bold text-white">Jericho Businessmen Club</span>
             </div>
             <p className="text-gray-400 text-sm sm:text-base">

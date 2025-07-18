@@ -24,7 +24,7 @@ const Sub = () => {
                     <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
                   </div>
                   <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <div className="bg-white p-2 lg:p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
+                    <div className="bg-white p-3 lg:p-6  rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center mb-4">
                         <div className="flex items-center justify-center w-10 h-10 rounded-full lg:bg-blue-100 mr-4">
                           <Zap className="w-5 h-5 text-blue-600" />
@@ -37,7 +37,7 @@ const Sub = () => {
                         Exploring how emerging technologies like AI, robotics, and automation are transforming the nature of work. Focus areas will include workforce upskilling, digital integration in both formal and informal sectors, and building a resilient, future-ready labor market.
                       </p>
                     </div>
-                    <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
+                    <div className="bg-white p-3 lg:p-6  rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center mb-4">
                         <div className="flex items-center justify-center w-10 h-10 rounded-full lg:bg-blue-100 mr-4">
                           <TrendingUp className="w-5 h-5 text-blue-600" />
@@ -50,7 +50,7 @@ const Sub = () => {
                         Examining how Oyo State can leverage digital infrastructure to unlock entrepreneurship, drive innovation, and expand market access. Areas of focus include fintech, e-commerce, gig work, and removing barriers for youth and underserved entrepreneurs.
                       </p>
                     </div>
-                    <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
+                    <div className="bg-white p-3 lg:p-6  rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center mb-4">
                         <div className="flex items-center justify-center w-10 h-10 rounded-full lg:bg-blue-100 mr-4">
                           <Award className="w-5 h-5 text-blue-600" />
@@ -63,7 +63,7 @@ const Sub = () => {
                         Addressing the need to reform education to match future workforce demands. Focus will be on critical thinking, creativity, digital literacy, curriculum reform, and strengthening vocational and lifelong learning systems.
                       </p>
                     </div>
-                    <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
+                    <div className="bg-white p-3 lg:p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center mb-4">
                         <div className="flex items-center justify-center w-10 h-10 rounded-full lg:bg-blue-100 mr-4">
                           <Target className="w-5 h-5 text-blue-600" />
