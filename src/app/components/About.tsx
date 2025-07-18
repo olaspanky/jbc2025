@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Zap,
-  Users,
+  Sparkles, Users, Building, Handshake,
   Target,
   HandHeart,
   TrendingUp,
@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
+import PremiumButtons from "./PremiumButtons";
 
 const FeatureItem = ({
   icon: Icon,
@@ -141,15 +142,16 @@ const AboutSection: React.FC = () => {
         </div>
 
         {/* Summit Objectives */}
-        <div className="mb-16">
+        <div className="flex flex-col lg:flex-row">
+           <div className="mb-16 lg:w-1/2 p-2">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl font-bold text-center text-gray-900 mb-4">
               Summit Objectives
             </h3>
             <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
           </div>
           <div className="flex flex-col lg:flex-row gap-7 justify-center items-center w-[100vw]">
-            <div className="lg:w-4/10 lg:p-20 mx-auto">
+            <div className="lg:w-4/10 lg:p-20 mx-auto p-2">
               {features.map((feature, index) => (
                 <FeatureItem
                   key={index}
@@ -162,12 +164,17 @@ const AboutSection: React.FC = () => {
               ))}
             </div>
             <div
-              className="lgg:w-5/10 lg:h-[90vh] bg-cover bg-center rounded-tl-lg rounded-bl-lg shadow-lg"
+              className="lg:w-5/10 w-full lg:h-[90vh] h-[80vh] bg-cover bg-center rounded-tl-lg rounded-bl-lg shadow-lg"
               style={{ backgroundImage: `url(/images/ai1.png)` }}
               aria-label="Summit Background Image"
-            ></div>
+            >
+
+            </div>
           </div>
         </div>
+
+        </div>
+       
 
        
 
@@ -217,29 +224,7 @@ const AboutSection: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
-                href="mailto:jbc.summit@jbcibadan.org?subject=Sponsorship Interest"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
-              >
-                Sponsorship Interest
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </a>
-              <a
-                href="mailto:jbc.summit@jbcibadan.org?subject=Exhibition Interest"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
-              >
-                Exhibition Interest
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </a>
-              <a
-                href="mailto:jbc.summit@jbcibadan.org?subject=Partnership Interest"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
-              >
-                Partnership Interest
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </a>
-            </div>
+           <PremiumButtons/>
           </div>
         </div>
 

@@ -12,7 +12,7 @@ import {
 
 const Sub = () => {
   return (
-    <div className='bg-gray-50 bg-cover bg-center py-16 px-4'
+    <div className='bg-[#F2F3F4] bg-cover bg-center py-16 px-4'
                 //   style={{ backgroundImage: `url(/images/aibg.jpg)` }}
 >
          {/* Sub-Thematic Areas */}
@@ -137,7 +137,7 @@ const Sub = () => {
                     </div>
                   </div>
                    <div
-              className="lg:w-5/10 lg:h-[80vh] bg-cover bg-center rounded-tl-lg rounded-bl-lg shadow-lg"
+              className="lg:w-5/10 h-[80vh] bg-cover bg-center rounded-tl-lg rounded-bl-lg shadow-lg"
               style={{ backgroundImage: `url(/images/ai2.jpg)` }}
               aria-label="Summit Background Image"
             ></div>
