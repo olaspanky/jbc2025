@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -14,12 +14,22 @@ const navItems = [
 ] as const;
 
 const Navigation: React.FC = React.memo(() => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/20 border-b border-white/10">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center" onClick={closeMenu}>
               <Image
                 src="/images/emlogo.png"
                 alt="Jericho Businessmen Club Logo"
@@ -47,24 +57,26 @@ const Navigation: React.FC = React.memo(() => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <input
-            type="checkbox"
-            id="menu-toggle"
-            className="hidden peer"
-            aria-label="Toggle menu"
-          />
-          <label
-            htmlFor="menu-toggle"
+          <button
+            onClick={toggleMenu}
             className="md:hidden text-white hover:text-purple-300 transition-colors p-2 cursor-pointer"
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
-            <Menu className="w-6 h-6 block peer-checked:hidden" />
-            <X className="w-6 h-6 hidden peer-checked:block" />
-          </label>
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0 peer-checked:max-h-screen">
+        <div 
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
           <div className="backdrop-blur-xl bg-black/40 border-t border-white/10 px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
@@ -72,7 +84,7 @@ const Navigation: React.FC = React.memo(() => {
                 href={item.path}
                 className="block px-3 py-2 text-white text-base font-medium hover:text-purple-300 hover:bg-white/5 rounded-md transition-all duration-200"
                 aria-label={`Navigate to ${item.name} page`}
-                onClick={() => document.getElementById("menu-toggle")!.click()}
+                onClick={closeMenu}
               >
                 {item.name}
               </Link>
@@ -80,20 +92,6 @@ const Navigation: React.FC = React.memo(() => {
           </div>
         </div>
       </div>
-
-      {/* CSS for checkbox toggle */}
-      <style jsx>{`
-        #menu-toggle:checked ~ div {
-          max-height: 100vh;
-          opacity: 1;
-        }
-        #menu-toggle:checked + label .block {
-          display: none;
-        }
-        #menu-toggle:checked + label .hidden {
-          display: block;
-        }
-      `}</style>
     </nav>
   );
 });
