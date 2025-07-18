@@ -107,12 +107,12 @@ const AboutSection: React.FC = () => {
       <div className="mx-auto px-4 justify-center items-center flex flex-col">
         {/* Header Section */}
         <div className="text-center mb-16 max-w-7xl">
-          <div className="inline-flex items-center text-blue-600 font-bold mb-6">
+          <div className="inline-flex lg:items-center text-blue-600 font-bold mb-6">
             <span className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold text-blue-900 mb-4">
               A Case for Technology Preparedness
             </span>
           </div>
-          <div className="mx-auto">
+          <div className="mx-auto text-left">
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
               In an era shaped by artificial intelligence, digital disruption,
               automation, and shifting global markets, the future of work and
