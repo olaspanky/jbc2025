@@ -273,7 +273,7 @@ const ProfessionalSummitHero = () => {
       ))}
 
       {/* Main Content - Centered within Left Side */}
-      <div className="  relative z-30 text-center px-6 py-12 w-[100vw] 2xl:max-w-7xl">
+      <div className="  relative z-30 text-center px-6 py-12 w-[100vw]">
         {/* ... rest of your content remains exactly the same ... */}
         <div className="space-y-8 pt-12 lg:pt-7 xl:pt-5">
           {/* Event Badge */}
