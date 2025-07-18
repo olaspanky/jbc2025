@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Head from "./components/Head";
 import About from "./components/About";
+import Sub from "./components/Sub";
 import Image from "next/image";
 
 // Interfaces for TypeScript
@@ -455,7 +456,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
         id="register"
         className="py-20 bg-gray-100 relative overflow-hidden"
       >
-        <div className="max-w-6xl mx-auto px-4 relative z-10">
+        <div className="max-w-6xl mx-auto lg:px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-blue-900 drop-shadow-2xl">
               Secure Your Spot
@@ -495,7 +496,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
                 Register Early Bird
               </a>
             </GlassCard>
-            <GlassCard className="p-6 sm:p-8">
+            <GlassCard className="lg:p-6 p-2 sm:p-8">
               <h3 className="text-2xl sm:text-3xl font-bold text-black mb-8 text-center">Registration Form</h3>
               {error && <p className="text-red-300 text-center mb-4">{error}</p>}
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -665,6 +666,8 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
       <AboutSection />
       {/* <SpeakersSection />
       <ScheduleSection /> */}
+      
+      <Sub />
       <RegistrationSection />
       <Footer />
     </div>

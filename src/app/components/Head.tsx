@@ -16,6 +16,7 @@ const ProfessionalSummitHero = () => {
       desktop: '/images/ai4.jpg',
       mobile: '/images/ai4.jpg'
     },
+   
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -241,11 +242,12 @@ useEffect(() => {
           {/* Main Title */}
           <div className="space-y-4 text-center animate-fade-in-up" >
             <h1 className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold leading-tight text-center">
-              <span className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl mb-4 relative overflow-hidden">
+              <span className="block text-2xl sm:text-3xl md:text-3xl 2xl:text-3xl text-white bg-clip-text font-light">
                 JERICHO BUSINESSMEN CLUB
               </span>
-              <span className="block text-2xl sm:text-3xl md:text-3xl 2xl:text-3xl text-white bg-clip-text font-light">
-                SOCIO-ECONOMIC SUMMIT
+                              <span className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl mb-4 relative overflow-hidden">
+
+                3rd Annual SOCIO-ECONOMIC SUMMIT
               </span>
             </h1>
           </div>
@@ -254,7 +256,7 @@ useEffect(() => {
           <div className="max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <p className="text-lg sm:text-xl md:text-2xl 2xl:text-3xl text-white/90 leading-relaxed font-light text-center">
               <span className="font-semibold text-white">Future-Ready Oyo State:</span><br />
-              <span className="text-white text-xl">Tech, Talent, and Transformation for a Thriving Tomorrow</span>
+              <span className="text-white text-xl font-bold">Tech, Talent, and Transformation for a Thriving Tomorrow</span>
             </p>
           </div>
 
@@ -264,7 +266,7 @@ useEffect(() => {
               <div className="flex items-center justify-center space-x-3 text-white mb-3">
                 <Calendar className="w-6 h-6 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
                 <div>
-                  <div className="2xl:text-xl text-md font-bold">Friday, November 21</div>
+                  <div className="2xl:text-xl text-lg font-bold">Friday, November 21</div>
                   <div className="text-white/70">2025</div>
                 </div>
               </div>
@@ -275,7 +277,7 @@ useEffect(() => {
                 <MapPin className="w-6 h-6 text-purple-400 group-hover:scale-110 transition-transform duration-300" />
                 <div>
                   <div className="2xl:text-xl text-md font-bold">Ibadan, Nigeria</div>
-                  <div className="text-white/70 text-sm">International Conference Centre, UI</div>
+                  <div className="text-white/70 text-lg">International Conference Centre, UI</div>
                 </div>
               </div>
             </GlassCard>
@@ -295,20 +297,19 @@ useEffect(() => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '1s' }}>
             <a
               href="#register"
-              className="group relative inline-flex items-center space-x-2  bg-pos-0 hover:bg-pos-100 px-8 py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 animate-pulse-slow"
-              aria-label="Register for the summit"
+              className="group inline-flex items-center space-x-2 border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-full font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
               <Users className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              <span>Register Now - Early Bird Special</span>
+              <span>Register Now</span>
             </a>
             
-            <a
+            {/* <a
               href="#speakers"
               className="group inline-flex items-center space-x-2 border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-full font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
               <Award className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               <span>View Speakers</span>
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
