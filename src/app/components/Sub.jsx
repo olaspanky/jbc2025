@@ -127,13 +127,13 @@ const Sub = () => {
                       This initiative ensures the summit’s impact extends beyond conversation, by directly empowering participants to act on what they learn.
                     </p>
                     <div className="text-center">
-                      <a
-                        href="https://bootcamp.jbcibadan.org" // Replace with actual Boot Camp website URL
+                      <Link
+                        href="/bootcamp/bootcamp" // Replace with actual Boot Camp website URL
                         className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
                       >
                         Learn More
                         <ArrowRight className="ml-2 w-5 h-5" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                    <div
