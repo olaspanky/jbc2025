@@ -148,10 +148,10 @@ const AboutSection: React.FC = () => {
             <h3 className="text-3xl font-bold text-center text-gray-900 mb-4">
               Summit Objectives
             </h3>
-            <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
+            <div className="2xl:w-16 h-1 bg-blue-600 mx-auto rounded-full" />
           </div>
           <div className="flex flex-col lg:flex-row gap-7 justify-center items-center w-[100vw]">
-            <div className="lg:w-4/10 lg:p-20 mx-auto p-2">
+            <div className="xl:w-5/10 xl:p-20 mx-auto p-2">
               {features.map((feature, index) => (
                 <FeatureItem
                   key={index}
