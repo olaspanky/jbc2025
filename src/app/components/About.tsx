@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import PremiumButtons from "./PremiumButtons";
+import Fbox from "./Fbox";
 
 const FeatureItem = ({
   icon: Icon,
@@ -106,13 +107,14 @@ const AboutSection: React.FC = () => {
     <section id="about" className="py-20 bg-white">
       <div className="mx-auto px-4 justify-center items-center flex flex-col">
         {/* Header Section */}
-        <div className="text-center mb-16 max-w-7xl">
+        <div className="text-center mb-16 ">
           <div className="inline-flex lg:items-center text-blue-600 font-bold mb-6">
             <span className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold text-blue-900 mb-4">
               A Case for Technology Preparedness
             </span>
           </div>
-          <div className="mx-auto text-left">
+          <div className="flex flex-col lg:flex-row max-w-7xl  justify-center items-center gap-4">
+              <div className="mx-auto text-left lg:w-1/2">
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
               In an era shaped by artificial intelligence, digital disruption,
               automation, and shifting global markets, the future of work and
@@ -131,46 +133,37 @@ const AboutSection: React.FC = () => {
               prosperous future.
             </p>
             <div>
-              <Quote className="w-3 h-3 text-gray-400 mb-4" />
-              <p className="text-gray-600 italic leading-relaxed font-bold">
+              <Quote className="w-5 h-5 text-gray-400 mb-4" />
+              <p className="text-gray-600 italic leading-relaxed text-xl font-bold">
                 "The workforce of the future is being shaped today. We must
                 ensure our youth are ready to build it. Because preparing young
                 minds today is the surest investment in tomorrow's progress."
               </p>
             </div>
           </div>
+
+          <div className="lg:w-1/2 ">
+          
+          <img
+            src="/images/ai1.png"
+            alt="AI Illustration"
+          
+            className="rounded-lg shadow-lg object-cover w-full h-auto"
+            aria-label="AI Illustration"
+          />
+          </div>
+            
+          </div>
+        
         </div>
 
         {/* Summit Objectives */}
-        <div className="flex flex-col lg:flex-row">
-           <div className="mb-16 lg:w-1/2 p-2">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-center text-gray-900 mb-4">
-              Summit Objectives
-            </h3>
-            <div className="2xl:w-16 h-1 bg-blue-600 mx-auto rounded-full" />
-          </div>
-          <div className="flex flex-col lg:flex-row gap-7 justify-center items-center w-[100vw]">
-            <div className="xl:w-5/10 xl:p-20 mx-auto p-2">
-              {features.map((feature, index) => (
-                <FeatureItem
-                  key={index}
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  index={index}
-                  isLast={index === features.length - 1}
-                />
-              ))}
-            </div>
-            <div
-              className="lg:w-5/10 w-full lg:h-[90vh] h-[80vh] bg-cover bg-center rounded-tl-lg rounded-bl-lg shadow-lg"
-              style={{ backgroundImage: `url(/images/ai1.png)` }}
-              aria-label="Summit Background Image"
-            >
-
-            </div>
-          </div>
+        <div className="flex ">
+           <div className="mb-16 p-2">
+         
+        <div>
+          <Fbox/>
+        </div>
         </div>
 
         </div>

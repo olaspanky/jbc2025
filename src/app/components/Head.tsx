@@ -304,7 +304,7 @@ const ProfessionalSummitHero = () => {
                 Future-Ready Oyo State:
               </span>
               <br />
-              <span className="text-white text-xl font-bold">
+              <span className="text-white font-bold">
                 Tech, Talent, and Transformation for a Thriving Tomorrow
               </span>
             </p>
@@ -362,9 +362,9 @@ const ProfessionalSummitHero = () => {
           >
             <a
               href="#register"
-              className="group inline-flex items-center space-x-2 border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-full font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="group inline-flex items-center justify-center space-x-2 border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-full font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
-              <Users className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+              <Users className="w-8 h-8 group-hover:scale-110 transition-transform duration-300" />
               <span>Register Now</span>
             </a>
 

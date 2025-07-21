@@ -466,38 +466,9 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
               Limited seats available - Register today for early bird pricing
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
-            <GlassCard className="p-6 sm:p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-4">Early Bird Special</h3>
-            
-               
-                <p className="text-sm sm:text-base text-black">Only 30% of early bird tickets remaining</p>
-              </div>
-              <div className="space-y-4">
-                {[
-                  "All keynote sessions & workshops",
-                  "Exclusive networking events",
-                  "Premium conference materials",
-                  "Certificate of attendance",
-                  "VIP lunch experiences",
-                  "Post-event community access",
-                ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-blue-900 flex-shrink-0" />
-                    <span className="text-gray-500 text-sm sm:text-base">{feature}</span>
-                  </div>
-                ))}
-              </div>
-              <a
-                href="#register"
-                className="inline-block mt-4 text-sm sm:text-base md:text-lg  px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white hover:scale-105 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-                aria-label="Register with early bird pricing"
-              >
-                Register Early Bird
-              </a>
-            </GlassCard>
-            <GlassCard className="lg:p-6 p-2 sm:p-8">
+          <div className="flex justify-center items-center gap-8 sm:gap-12">
+           
+            <GlassCard className="lg:p-6 p-2 sm:p-8 w-3xl">
               <h3 className="text-2xl sm:text-3xl font-bold text-black mb-8 text-center">Registration Form</h3>
               {error && <p className="text-red-300 text-center mb-4">{error}</p>}
               <form onSubmit={handleSubmit} className="space-y-6">
