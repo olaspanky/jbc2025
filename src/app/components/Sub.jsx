@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import Cta from "./CTAButton"
 
 const Sub = () => {
   return (
@@ -152,7 +153,7 @@ const Sub = () => {
             <div className="text-center">
               <Link
                 href="/bootcamp/bootcamp" // Replace with actual Boot Camp website URL
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
+          className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-xl font-semibold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 focus:outline-none focus:ring-4 focus:ring-blue-500/50 overflow-hidden"
               >
                 Learn More
                 <ArrowRight className="ml-2 w-5 h-5" />

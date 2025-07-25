@@ -23,6 +23,8 @@ import About from "./components/About";
 import Sub from "./components/Sub";
 import Image from "next/image";
 import logo from "../../public/images/emlogo.png";
+import Reg from "./components/Reg";
+import Cta from "./components/CTAButton";
 
 // Interfaces for TypeScript
 interface TimeLeft {
@@ -466,87 +468,9 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
               Limited seats available - Register today for early bird pricing
             </p>
           </div>
-          <div className="flex justify-center items-center gap-8 sm:gap-12">
-           
-            <GlassCard className="lg:p-6 p-2 sm:p-8 w-3xl">
-              <h3 className="text-2xl sm:text-3xl font-bold text-black mb-8 text-center">Registration Form</h3>
-              {error && <p className="text-red-300 text-center mb-4">{error}</p>}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Full Name *"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
-                    required
-                    aria-label="Full Name"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email Address *"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
-                    required
-                    aria-label="Email Address"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Phone Number *"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
-                    required
-                    aria-label="Phone Number"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Company/Organization *"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
-                    required
-                    aria-label="Company or Organization"
-                  />
-                </div>
-                <div>
-                  <select
-                    value={formData.ticketType}
-                    onChange={(e) => setFormData({ ...formData, ticketType: e.target.value })}
-                    className="w-full bg-white/10 border border-black/20 rounded-xl p-4 text-black placeholder-black focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-all duration-300"
-                    required
-                    aria-label="Select Ticket Type"
-                  >
-                    <option value="" disabled>
-                      Select Ticket Type *
-                    </option>
-                    <option value="early">Early Bird - ₦500,000</option>
-                    <option value="regular">Regular - ₦750,000</option>
-                    <option value="vip">VIP Package - ₦1,200,000</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className={`w-full py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 ${
-                    isSubmitted
-                      ? "bg-green-500 text-white"
-                      : "bg-blue-900 text-white hover:scale-105 shadow-2xl"
-                  }`}
-                  disabled={isSubmitted}
-                  aria-label={isSubmitted ? "Registration Submitted" : "Submit Registration"}
-                >
-                  {isSubmitted ? "✓ Registration Submitted!" : "Submit Registration"}
-                </button>
-              </form>
-            </GlassCard>
-          </div>
+
+          <Reg/>
+      
         </div>
       </section>
     );

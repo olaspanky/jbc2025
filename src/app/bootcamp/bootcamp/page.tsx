@@ -492,7 +492,7 @@ const JBCBootcampLanding = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <button
-                onClick={() => window.open("https://forms.gle/your-application-form", "_blank")}
+                onClick={() => window.open("https://forms.gle/VK8ZhMgpvFKbfp87A", "_blank")}
                 className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
               >
                 <Zap className="w-6 h-6" />
