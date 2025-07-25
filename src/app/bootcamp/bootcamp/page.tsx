@@ -169,25 +169,27 @@ const JBCBootcampLanding = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-6 py-20">
+      <section className="relative z-10 lg:px-6 p-2 lg:py-20">
         <div className="max-w-7xl mx-auto text-center">
           <div className={`transform transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
-            <div className="inline-block mb-6">
+
+            <div className="h-[100vh] lg:h-[90vh] flex flex-col justify-between lg:p-9 2xl:p-32">
+            <div className="inline-block xl:mb-6">
               <span className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full text-sm font-medium border border-purple-500/30 backdrop-blur-sm">
                 ✨ Digital Innovation Summit 2025
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              The{" "}
+            <h1 className="text-5xl xl:text-7xl font-bold lg:mb-6 leading-tight flex flex-col">
+              
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
-                {gradientTexts[currentSlide]}
+               The{" "} {gradientTexts[currentSlide]}
               </span>
-              <br />
-              <span className="text-4xl md:text-5xl">Digital Bootcamp 2025</span>
+              <br className="hidden 2xl:block"/>
+              <span className="text-3xl xl:text-5xl">Digital Bootcamp 2025</span>
             </h1>
 
-            <div className="flex flex-col gap-3 justify-center items-center mb-8">
+            {/* <div className="flex flex-col gap-3 justify-center items-center mb-8">
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Preparing the Next Generation for the Future of Work and Innovation
               </p>
@@ -202,10 +204,36 @@ const JBCBootcampLanding = () => {
                 <Zap className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
                 <span>Apply Now</span>
               </a>
-            </div>
+            </div> */}
 
-            <div className="flex gap-8 w-full justify-center items-center mb-12">
-              <div className="flex flex-col gap-5 w-1/2 text-left text-xl md:text-2xl text-gray-300 mb-8 mx-auto leading-relaxed">
+            <div className="flex flex-col gap-3 justify-center items-center mb-8">
+            <p className="flex flex-col gap-2 text-lg sm:text-xl md:text-2xl 2xl:text-3xl text-white/90 leading-relaxed font-light text-center">
+              <span className="font-semibold text-white">
+                Preparing the Next Generation for the Future of Work and Innovation:
+              </span>
+              <br />
+              <span className="text-white font-bold ">
+                A 5-Day On-Site, Intensive and High-Impact Learning Experience Powered by JBC Socio-Economic Summit 2025
+              </span>
+            </p>
+
+             <a
+                href="#register"
+                className="group inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl mt-4"
+              >
+                <Zap className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                <span>Apply Now</span>
+              </a>
+          </div>
+          </div>
+
+
+
+
+
+
+            <div className="flex flex-col xl:flex-row  gap-8 w-full justify-center items-center lg:mb-12">
+              <div className="flex flex-col gap-5 xl:w-1/2 text-center xl:text-left text-xl md:text-2xl text-gray-300 mb-8 mx-auto leading-relaxed">
                 <span>
                   The Future-Ready Youth Digital Bootcamp is a 5-day, hands-on training experience designed to equip young
                   people with the practical skills, tools, and mindset needed to thrive in today’s digital economy. Whether
@@ -221,7 +249,7 @@ const JBCBootcampLanding = () => {
               </div>
 
               {/* Image Placeholder */}
-              <div className="my-12 mx-auto w-1/2">
+              <div className="lg:my-12 mx-auto lg:w-1/2">
                   <div className="text-center">
                    <img src="/images/g2.jpg" alt="Bootcamp Placeholder" className="" />
                 </div>
@@ -298,7 +326,7 @@ const JBCBootcampLanding = () => {
                     {step.step}
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex lg:flex-row flex-col lg:items-center space-x-3 mb-3">
                       <div className={step.status === "active" ? "text-green-400" : "text-purple-400"}>{step.icon}</div>
                       <h3 className="text-xl font-bold">{step.title}</h3>
                       {step.status === "active" && (
@@ -479,13 +507,13 @@ const JBCBootcampLanding = () => {
       {/* Call to Action Section */}
       <section id="register" className="relative z-10 px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="p-12 rounded-3xl bg-gradient-to-br from-purple-600/20 to-blue-600/20 border border-purple-500/30 backdrop-blur-sm">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <div className="p-3 lg:p-12 rounded-3xl bg-gradient-to-br from-purple-600/20 to-blue-600/20 border border-purple-500/30 backdrop-blur-sm">
+            <h2 className="text-2xl md:text-5xl font-bold mb-6">
               <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                 Think You Are a Good Fit?
               </span>
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="lg:text-xl text-gray-300 mb-8">
               Join the ranks of Digitally Empowered Youths shaping the Future of Work and Innovation in Oyo State and
               Nigeria. Your journey toward professional transformation and entrepreneurial success begins here.
             </p>
@@ -493,9 +521,9 @@ const JBCBootcampLanding = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <button
                 onClick={() => window.open("https://forms.gle/VK8ZhMgpvFKbfp87A", "_blank")}
-                className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
+                className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-full font-semibold lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
               >
-                <Zap className="w-6 h-6" />
+                <Zap className="lg:w-6 lg:h-6" />
                 <span>START YOUR APPLICATION NOW</span>
               </button>
             </div>
