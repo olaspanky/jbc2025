@@ -160,7 +160,7 @@ const Sub = () => {
             </div>
           </div>
           <div className="lg:w-5/10 h-[80vh] flex justify-center items-center">
-           <img src="/images/ai2.jpg" alt="Boot Camp" className="w-[80%] h-[90%] object-cover rounded-lg shadow-lg" />
+           <img src="/images/g3.jpg" alt="Boot Camp" className="w-[80%] h-[80%] object-cover rounded-lg shadow-lg" />
           </div>
         </div>
       </div>
