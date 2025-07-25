@@ -523,8 +523,9 @@ const JBCBootcampLanding = () => {
                 onClick={() => window.open("https://forms.gle/VK8ZhMgpvFKbfp87A", "_blank")}
                 className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-8 py-4 rounded-full font-semibold lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
               >
-                <Zap className="lg:w-6 lg:h-6" />
-                <span>START YOUR APPLICATION NOW</span>
+                <Zap className="hidden lg:block lg:w-6 lg:h-6" />
+                <span>START YOUR APPLICATION NOW                 
+</span>
               </button>
             </div>
 
