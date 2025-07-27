@@ -595,14 +595,7 @@ const JBCBootcampLanding = () => {
           </div>
 
           {/* Partner Image Placeholder */}
-          <div className="mb-16 mt-16 mx-auto max-w-5xl">
-            <div className=" bg-gradient-to-br from-purple-600/20 to-blue-600/20 rounded-lg border border-purple-500/30 flex items-center justify-center">
-              <div className="text-center">
-              <img src="/images/g1.jpg" alt="Partner Placeholder" className="w-full h-full object-cover rounded-lg" />
-              </div>
-            </div>
-          </div>
-
+       
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {partnerBenefits.map((benefit, index) => (
               <div
