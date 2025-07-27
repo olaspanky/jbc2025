@@ -237,29 +237,41 @@ const JBCBootcampLanding = () => {
         </div>
       </section>
 
-       <div className="flex flex-col xl:flex-row  gap-8 w-full justify-center items-center lg:mb-12">
-              <div className="flex flex-col gap-5 xl:w-1/2 text-center xl:text-left text-xl md:text-2xl text-gray-300 mb-8 mx-auto leading-relaxed">
-                <span>
-                  The Future-Ready Youth Digital Bootcamp is a 5-day, hands-on training experience designed to equip young
-                  people with the practical skills, tools, and mindset needed to thrive in today’s digital economy. Whether
-                  you are a student, recent graduate, job seeker, or young entrepreneur, this Bootcamp offers real-world
-                  learning in digital tools, freelancing, productivity, workplace readiness, and business innovation.
-                </span>
-                <span>
-                  More than just training, the Bootcamp will connect participants to career clinics, mentorship sessions, and
-                  peer networking opportunities - all aimed at building confidence, competence, and community. Powered by the
-                  Jericho Businessmen Club (JBC) as a key part of the 2025 Summit, it is a bold step towards turning potential
-                  into action - and conversation into impact.
-                </span>
-              </div>
+ <section className="flex justify-center items-center py-16 ">
+      <div className="max-w-7xl flex flex-col xl:flex-row gap-8 w-full justify-center items-stretch lg:mb-12 px-4">
+        <div className="flex flex-col gap-5 xl:w-1/2 text-center xl:text-left text-xl md:text-2xl  leading-relaxed">
+          <span>
+            The Future-Ready Youth Digital Bootcamp is a 5-day, hands-on training experience designed to equip young people
+            with the practical skills, tools, and mindset needed to thrive in today’s digital economy. Whether you are a
+            student, recent graduate, job seeker, or young entrepreneur, this Bootcamp offers real-world learning in digital
+            tools, freelancing, productivity, workplace readiness, and business innovation.
+          </span>
+          <span>
+            More than just training, the Bootcamp will connect participants to career clinics, mentorship sessions, and peer
+            networking opportunities - all aimed at building confidence, competence, and community. Powered by the Jericho
+            Businessmen Club (JBC) as a key part of the 2025 Summit, it is a bold step towards turning potential into action
+            - and conversation into impact.
+          </span>
+        </div>
 
-              {/* Image Placeholder */}
-              <div className="lg:my-12 mx-auto lg:w-1/2">
-                  <div className="text-center">
-                   <img src="/images/g2.jpg" alt="Bootcamp Placeholder" className="" />
-                </div>
-              </div>
-            </div>
+        {/* Image Container */}
+        <div className="xl:w-1/2 flex items-stretch">
+          <div className="w-full">
+            <Image
+              src="/images/z1.jpg"
+              alt="Bootcamp Illustration"
+              className="rounded-lg shadow-lg object-cover w-full h-full md:bg-[url('/images/n122.jpg')] bg-[url('/images/g2.jpg')]"
+              width={600} // Adjust based on your image's aspect ratio
+              height={400} // Adjust based on your image's aspect ratio
+              priority
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+      
+
+      
 
       {/* Core Objectives Section */}
       <section id="objectives" className="relative z-10 px-6 py-20">
