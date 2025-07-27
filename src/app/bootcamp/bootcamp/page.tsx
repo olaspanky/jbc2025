@@ -237,7 +237,7 @@ const JBCBootcampLanding = () => {
         </div>
       </section>
 
- <section className="flex justify-center items-center py-16 ">
+ <section className="flex justify-center items-center lg:py-16 ">
       <div className="max-w-7xl flex flex-col xl:flex-row gap-8 w-full justify-center items-stretch lg:mb-12 px-4">
         <div className="flex flex-col gap-5 xl:w-1/2 text-center xl:text-left text-xl md:text-2xl  leading-relaxed">
           <span>
