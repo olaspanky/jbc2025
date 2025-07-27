@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import PremiumButtons from "./PremiumButtons";
 import Fbox from "./Fbox";
+import Speaker from "./Speaker";
 
 const FeatureItem = ({
   icon: Icon,
@@ -113,49 +114,51 @@ const AboutSection: React.FC = () => {
               A Case for Technology Preparedness
             </span>
           </div>
-          <div className="flex flex-col lg:flex-row max-w-7xl  justify-center items-center gap-4">
-              <div className="mx-auto text-left lg:w-1/2">
-            <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              In an era shaped by artificial intelligence, digital disruption,
-              automation, and shifting global markets, the future of work and
-              economic growth is no longer abstract—it is happening now. For Oyo
-              State—with its rapidly growing youth population, educational
-              institutions, and emerging innovation ecosystem—
-              <span className="font-semibold text-blue-600">
-                {" "}
-                the moment to act is now
-              </span>.
+          <div className="flex flex-col lg:flex-row max-w-7xl justify-center items-stretch gap-4 mx-auto px-4">
+      <div className="text-left lg:w-1/2 flex flex-col justify-between">
+        <div>
+          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+            In an era shaped by artificial intelligence, digital disruption,
+            automation, and shifting global markets, the future of work and
+            economic growth is no longer abstract—it is happening now. For Oyo
+            State—with its rapidly growing youth population, educational
+            institutions, and emerging innovation ecosystem—
+            <span className="font-semibold text-blue-600">
+              {" "}
+              the moment to act is now
+            </span>.
+          </p>
+          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+            We are organizing a Socio-Economic Summit themed "Future-ready Oyo
+            State: Tech, Talent and Transformation for a Thriving Tomorrow" to
+            explore actionable solutions and mobilize resources for a
+            prosperous future.
+          </p>
+          <div>
+            <Quote className="w-5 h-5 text-gray-400 mb-4" />
+            <p className="text-gray-600 italic leading-relaxed text-xl font-bold">
+              "The workforce of the future is being shaped today. We must
+              ensure our youth are ready to build it. Because preparing young
+              minds today is the surest investment in tomorrow's progress."
             </p>
-            <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              We are organizing a Socio-Economic Summit themed "Future-ready Oyo
-              State: Tech, Talent and Transformation for a Thriving Tomorrow" to
-              explore actionable solutions and mobilize resources for a
-              prosperous future.
-            </p>
-            <div>
-              <Quote className="w-5 h-5 text-gray-400 mb-4" />
-              <p className="text-gray-600 italic leading-relaxed text-xl font-bold">
-                "The workforce of the future is being shaped today. We must
-                ensure our youth are ready to build it. Because preparing young
-                minds today is the surest investment in tomorrow's progress."
-              </p>
-            </div>
           </div>
+        </div>
+      </div>
 
-          <div className="lg:w-1/2 ">
-          
-          <img
-            src="/images/ai1.png"
-            alt="AI Illustration"
-          
-            className="rounded-lg shadow-lg object-cover w-full h-auto"
-            aria-label="AI Illustration"
-          />
-          </div>
-            
-          </div>
+      <div className="lg:w-1/2 flex items-stretch">
+        <img
+          src="/images/ai1.png"
+          alt="AI Illustration"
+          className="rounded-lg shadow-lg object-cover w-full h-full"
+          aria-label="AI Illustration"
+        />
+      </div>
+    </div>
         
         </div>
+
+
+<Speaker/>
 
         {/* Summit Objectives */}
         <div className="flex ">

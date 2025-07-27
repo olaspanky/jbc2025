@@ -9,24 +9,6 @@ import {
 } from "lucide-react";
 
 const ProfessionalSummitHero = () => {
-  // Image configuration - desktop and mobile versions
-  const backgroundImages = [
-    {
-      desktop: "/images/ai3.jpg",
-      mobile: "/images/ai3mobile.jpg",
-    },
-    {
-      desktop: "/images/aii.jpg",
-      mobile: "/images/aii.jpg",
-    },
-    {
-      desktop: "/images/ai4.jpg",
-      mobile: "/images/ai4.jpg",
-    },
-  ];
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [nextImageIndex, setNextImageIndex] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check for mobile on mount and resize
@@ -73,25 +55,6 @@ const ProfessionalSummitHero = () => {
     }>
   >([]);
 
-  // Smooth crossfade background image transition
-  // Smooth crossfade background image transition
-  useEffect(() => {
-    const transitionDuration = 5000; // 5 seconds per image
-    const fadeDuration = 2000; // 2 seconds crossfade
-
-    const interval = setInterval(() => {
-      // Calculate next index (wrapping around to 0 if at end)
-      const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
-      setNextImageIndex(nextIndex);
-
-      // After fadeDuration, make the next image the current one
-      setTimeout(() => {
-        setCurrentImageIndex(nextIndex);
-      }, fadeDuration);
-    }, transitionDuration);
-
-    return () => clearInterval(interval);
-  }, [currentImageIndex, backgroundImages.length]); // Add currentImageIndex to dependencies
   // Countdown timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -151,40 +114,20 @@ const ProfessionalSummitHero = () => {
     </div>
   );
 
-  // Get the appropriate image URL based on device
-  const getImageUrl = (index: number) => {
-    return isMobile
-      ? backgroundImages[index].mobile
-      : backgroundImages[index].desktop;
-  };
-
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-start overflow-hidden"
     >
-      {/* Smooth Background Image Transition */}
+      {/* Static Background Image */}
       <div className="absolute inset-0 z-0">
-        {/* Current Image - always visible but may be fading out */}
         <div
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ease-in-out"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('${getImageUrl(currentImageIndex)}')`,
-            opacity: currentImageIndex === nextImageIndex ? 1 : 0,
+            backgroundImage: `url('/images/n1.jpg')`,
             zIndex: 10,
           }}
         />
-
-        {/* Next Image - fading in */}
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-2000 ease-in-out"
-          style={{
-            backgroundImage: `url('${getImageUrl(nextImageIndex)}')`,
-            opacity: currentImageIndex === nextImageIndex ? 0 : 1,
-            zIndex: 9,
-          }}
-        />
-
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-20" />
       </div>
@@ -241,16 +184,6 @@ const ProfessionalSummitHero = () => {
         .animate-shimmer {
           animation: shimmer 2s ease-in-out infinite;
         }
-        .transition-opacity {
-          transition-property: opacity;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .duration-2000 {
-          transition-duration: 2000ms;
-        }
-        .ease-in-out {
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
       `}</style>
 
       {/* Animated Background Particles */}
@@ -273,8 +206,7 @@ const ProfessionalSummitHero = () => {
       ))}
 
       {/* Main Content - Centered within Left Side */}
-      <div className="  relative z-30 text-center px-6 py-12 w-[100vw]">
-        {/* ... rest of your content remains exactly the same ... */}
+      <div className="relative z-30 text-center px-6 py-12 w-[100vw]">
         <div className="space-y-8 pt-12 lg:pt-7 xl:pt-5">
           {/* Event Badge */}
           <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-full px-6 py-3 backdrop-blur-sm animate-fade-in-up">
@@ -367,14 +299,6 @@ const ProfessionalSummitHero = () => {
               <Users className="w-8 h-8 group-hover:scale-110 transition-transform duration-300" />
               <span>Register Now</span>
             </a>
-
-            {/* <a
-              href="#speakers"
-              className="group inline-flex items-center space-x-2 border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-full font-semibold text-white hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-            >
-              <Award className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              <span>View Speakers</span>
-            </a> */}
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@ import {
 import Head from "./components/Head";
 import About from "./components/About";
 import Sub from "./components/Sub";
+import Speaker from "./components/Speaker";
 import Image from "next/image";
 import logo from "../../public/images/emlogo.png";
 import Reg from "./components/Reg";
@@ -558,6 +559,7 @@ const FeatureItem = ({ icon: Icon, title, description, gradient }: { icon: React
       <HeroSection />
     
       <AboutSection />
+
       {/* <SpeakersSection />
       <ScheduleSection /> */}
       

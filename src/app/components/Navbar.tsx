@@ -9,8 +9,8 @@ const navItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/jbc/about" },
   { name: "Speakers", path: "/jbc/speakers" },
-  { name: "Schedule", path: "/jbc/schedule" },
-  { name: "Register", path: "/jbc/register" },
+  { name: "Schedule", path: "#" },
+  { name: "Register", path: "#" },
 ] as const;
 
 const Navigation: React.FC = React.memo(() => {
