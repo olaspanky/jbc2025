@@ -183,7 +183,7 @@ const AboutSection: React.FC = () => {
             <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
           </div>
           <div className="max-w-6xl mx-auto">
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
+            <p className="text-xl text-gray-700 leading-relaxed mb-6 text-center lg:text-left">
               Partnering with us means joining a team dedicated to delivering success through innovation, global reach, and trusted collaboration.
             </p>
             <div className="grid md:grid-cols-2 gap-6 mb-8">
