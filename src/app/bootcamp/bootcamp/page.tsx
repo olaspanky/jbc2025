@@ -548,7 +548,7 @@ const JBCBootcampLanding = () => {
                 ⚡ The application window closes soon. Apply early to secure your spot in this transformative journey!
               </p>
 
-              <div className="pt-8 border-t border-white/10">
+              <div className="pt-8 border-t border-white/10 text-xl ">
                 <h3 className="text-xl font-bold mb-4 text-white">Need Help or Have Questions?</h3>
                 <p className="text-gray-300 mb-4">We are here to support you throughout the application process.</p>
                 <div className="grid md:grid-cols-2 gap-4 text-gray-300">
