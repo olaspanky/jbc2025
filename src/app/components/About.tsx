@@ -106,7 +106,7 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-20 bg-white">
-      <div className="mx-auto px-4 justify-center items-center flex flex-col">
+      <div className="mx-auto lg:px-4 justify-center items-center flex flex-col">
         {/* Header Section */}
         <div className="text-center mb-16 ">
           <div className="inline-flex lg:items-center text-blue-600 font-bold mb-6">
@@ -114,10 +114,10 @@ const AboutSection: React.FC = () => {
               A Case for Technology Preparedness
             </span>
           </div>
-          <div className="flex flex-col lg:flex-row max-w-7xl justify-center items-stretch gap-4 mx-auto px-4">
+          <div className="flex flex-col lg:flex-row max-w-7xl  justify-center items-stretch gap-4 mx-auto p-2 lg:px-4">
       <div className="text-left lg:w-1/2 flex flex-col justify-between">
         <div>
-          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+          <p className="text-xl text-gray-700 leading-relaxed mb-8 text-center lg:text-center">
             In an era shaped by artificial intelligence, digital disruption,
             automation, and shifting global markets, the future of work and
             economic growth is no longer abstract—it is happening now. For Oyo
@@ -128,7 +128,7 @@ const AboutSection: React.FC = () => {
               the moment to act is now
             </span>.
           </p>
-          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+          <p className="text-xl text-gray-700 leading-relaxed mb-8 text-center lg:text-center">
             We are organizing a Socio-Economic Summit themed "Future-ready Oyo
             State: Tech, Talent and Transformation for a Thriving Tomorrow" to
             explore actionable solutions and mobilize resources for a

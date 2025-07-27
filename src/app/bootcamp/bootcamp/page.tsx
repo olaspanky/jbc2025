@@ -169,7 +169,7 @@ const JBCBootcampLanding = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 lg:px-6 p-2 lg:py-20">
+      <section className="relative z-10 lg:px-6 p-2 lg:py-20 h-screen">
         <div className="max-w-7xl mx-auto text-center">
           <div className={`transform transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
 
@@ -183,7 +183,7 @@ const JBCBootcampLanding = () => {
             <h1 className="text-5xl xl:text-7xl font-bold lg:mb-6 leading-tight flex flex-col">
               
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
-               The{" "} {gradientTexts[currentSlide]}
+               The Future Ready Youth Bootcamp
               </span>
               <br className="hidden 2xl:block"/>
               <span className="text-3xl xl:text-5xl">Digital Bootcamp 2025</span>
@@ -232,7 +232,12 @@ const JBCBootcampLanding = () => {
 
 
 
-            <div className="flex flex-col xl:flex-row  gap-8 w-full justify-center items-center lg:mb-12">
+           
+          </div>
+        </div>
+      </section>
+
+       <div className="flex flex-col xl:flex-row  gap-8 w-full justify-center items-center lg:mb-12">
               <div className="flex flex-col gap-5 xl:w-1/2 text-center xl:text-left text-xl md:text-2xl text-gray-300 mb-8 mx-auto leading-relaxed">
                 <span>
                   The Future-Ready Youth Digital Bootcamp is a 5-day, hands-on training experience designed to equip young
@@ -255,9 +260,6 @@ const JBCBootcampLanding = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
       {/* Core Objectives Section */}
       <section id="objectives" className="relative z-10 px-6 py-20">

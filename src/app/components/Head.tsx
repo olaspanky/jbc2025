@@ -121,13 +121,14 @@ const ProfessionalSummitHero = () => {
     >
       {/* Static Background Image */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('/images/n1.jpg')`,
-            zIndex: 10,
-          }}
-        />
+      <div className="absolute inset-0 z-0">
+  <div
+    className="absolute inset-0 bg-cover bg-center md:bg-[url('/images/n1.jpg')] bg-[url('/images/n12.jpg')]"
+    style={{ zIndex: 10 }}
+  />
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-20" />
+</div>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-20" />
       </div>
@@ -216,11 +217,11 @@ const ProfessionalSummitHero = () => {
 
           {/* Main Title */}
           <div className="space-y-4 text-center animate-fade-in-up">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold leading-tight text-center">
+            <h1 className="text-xl sm:text-4xl md:text-4xl 2xl:text-6xl font-bold leading-tight text-center">
               <span className="block text-xl md:text-xl 2xl:text-3xl text-white bg-clip-text font-light">
                 JERICHO BUSINESSMEN CLUB
               </span>
-              <span className="text-4xl lg:text-5xl block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl mb-4 relative overflow-hidden">
+              <span className="text-3xl lg:text-5xl block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent drop-shadow-2xl mb-4 relative overflow-hidden">
                 3rd Annual SOCIO-ECONOMIC SUMMIT
               </span>
             </h1>

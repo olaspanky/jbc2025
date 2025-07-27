@@ -98,12 +98,12 @@ const Sub = () => {
       {/* Future-Ready Youth Digital Boot Camp */}
       <div className="mb-16">
         <div className="text-center mb-12">
-          <h3 className="text-3xl font-bold text-blue-600 mb-4">
+          <h3 className="text-3xl font-bold text-blue-600 mb-4 text-center lg:text-left">
             The Future-Ready Youth Digital Boot Camp
           </h3>
           <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
         </div>
-        <div className="w-full flex flex-col lg:flex-row justify-center items-center mx-auto lg:p-9 gap-5">
+        <div className="w-full flex flex-col lg:flex-row justify-center items-center mx-auto lg:p-9 gap-5 text-center lg:text-left">
           <div className="lg:w-1/2 ">
             <p className="text-xl text-gray-700 leading-relaxed mb-6">
               A cornerstone of this year’s summit is the{" "}
